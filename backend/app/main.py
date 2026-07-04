@@ -86,7 +86,34 @@ except Exception as e:
 async def health():
     return {"status": "ok", "version": "1.0.0", "service": "ClipForge AI"}
 
+import os
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
-@app.get("/")
+frontend_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+
+@app.get("/{page}.html", tags=["Frontend"])
+async def serve_html(page: str):
+    file_path = os.path.join(frontend_path, f"{page}.html")
+    if os.path.exists(file_path):
+        return FileResponse(file_path)
+    return JSONResponse(status_code=404, content={"error": "Page not found"})
+
+@app.get("/favicon.svg", tags=["Frontend"])
+async def serve_favicon():
+    return FileResponse(os.path.join(frontend_path, "favicon.svg"))
+
+@app.get("/manifest.json", tags=["Frontend"])
+async def serve_manifest():
+    return FileResponse(os.path.join(frontend_path, "manifest.json"))
+
+@app.get("/", tags=["Frontend"])
 async def root():
-    return {"message": "ClipForge AI API v1.0 — see /api/docs"}
+    return FileResponse(os.path.join(frontend_path, "index.html"))
+
+# Mount frontend directories securely
+for folder in ["scripts", "styles", "assets"]:
+    folder_path = os.path.join(frontend_path, folder)
+    if os.path.exists(folder_path):
+        app.mount(f"/{folder}", StaticFiles(directory=folder_path), name=folder)
+

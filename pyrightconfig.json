@@ -1,0 +1,11 @@
+{
+  "include": ["backend/app"],
+  "exclude": ["**/__pycache__"],
+  "pythonVersion": "3.11",
+  "pythonPlatform": "Windows",
+  "venvPath": "backend",
+  "venv": ".venv",
+  "typeCheckingMode": "basic",
+  "reportMissingImports": "warning",
+  "extraPaths": ["./backend"]
+}
