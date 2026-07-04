@@ -1,3 +1,7 @@
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 """
 ClipForge AI — Celery Background Worker
 Processes: video download → AI detection → rendering → S3/local save → DB update

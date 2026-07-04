@@ -1,3 +1,7 @@
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 """
 ClipForge AI — FFmpeg Rendering Worker
 Handles: 9:16 smart crop, audio mixing, music overlay, SFX insertion, watermark.
