@@ -7,3 +7,4 @@ aiofiles
 passlib
 bcrypt
 python-jose
+requests

@@ -127,3 +127,10 @@ prisma/.env
 
 # ── Nginx certs (managed by Certbot) ────────────────────────────
 nginx_certs/
+
+# Portable Tools
+backend/python-local/
+backend/python-embed.zip
+git-local/
+mingit.zip
+backend/get-pip.py

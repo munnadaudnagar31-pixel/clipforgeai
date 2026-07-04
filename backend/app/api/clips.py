@@ -1,9 +1,20 @@
-"""ClipForge AI — Clips API Routes (CRUD + download)
+﻿"""ClipForge AI â€” Clips API Routes (CRUD + download)
 
-GET  /api/clips/          — list user's clips (filterable by game/status/type)
-GET  /api/clips/{id}      — get clip details + download URL
-DELETE /api/clips/{id}    — delete clip
+GET  /api/clips/          â€” list user's clips (filterable by game/status/type)
+GET  /api/clips/{id}      â€” get clip details + download URL
+DELETE /api/clips/{id}    â€” delete clip
 """
+import os
+import sys
+# Inject workspace paths to fix IDE red lines and Render imports
+_app_dir = os.path.dirname(os.path.abspath(__file__))
+while os.path.basename(_app_dir) != 'app' and _app_dir != os.path.dirname(_app_dir):
+    _app_dir = os.path.dirname(_app_dir)
+_backend_dir = os.path.dirname(_app_dir)
+_root_dir = os.path.dirname(_backend_dir)
+if _backend_dir not in sys.path: sys.path.insert(0, _backend_dir)
+if _root_dir not in sys.path: sys.path.insert(0, _root_dir)
+
 
 from pathlib import Path
 from typing import List, Optional
@@ -22,7 +33,7 @@ from app.config import settings
 router = APIRouter()
 
 
-# ── Schemas ───────────────────────────────────────────────────────
+# â”€â”€ Schemas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class ClipResponse(BaseModel):
     id:            str
     title:         str
@@ -62,7 +73,7 @@ def _clip_to_response(c: Clip) -> ClipResponse:
     )
 
 
-# ── Routes ────────────────────────────────────────────────────────
+# â”€â”€ Routes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @router.get("/", response_model=List[ClipResponse])
 async def list_clips(
@@ -174,3 +185,4 @@ async def delete_clip(
             pass
 
     await db.delete(clip)
+

@@ -1,22 +1,32 @@
+﻿import os
+import sys
+# Inject workspace paths to fix IDE red lines and Render imports
+_app_dir = os.path.dirname(os.path.abspath(__file__))
+while os.path.basename(_app_dir) != 'app' and _app_dir != os.path.dirname(_app_dir):
+    _app_dir = os.path.dirname(_app_dir)
+_backend_dir = os.path.dirname(_app_dir)
+_root_dir = os.path.dirname(_backend_dir)
+if _backend_dir not in sys.path: sys.path.insert(0, _backend_dir)
+if _root_dir not in sys.path: sys.path.insert(0, _root_dir)
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 """
-ClipForge AI — Core AI Processing Pipeline
+ClipForge AI â€” Core AI Processing Pipeline
 
 This module provides a single synchronous entry point `run_pipeline()`
 that can be called from:
-  • A FastAPI background task (in-process, no Redis needed)
-  • A Celery worker (production)
-  • A test script (direct invocation)
+  â€¢ A FastAPI background task (in-process, no Redis needed)
+  â€¢ A Celery worker (production)
+  â€¢ A test script (direct invocation)
 
 Pipeline steps:
   1. Download video (yt-dlp) OR accept local path
   2. Audio analysis (librosa RMS peaks)
   3. Computer Vision (YOLO / fallback heuristic detector)
   4. Highlight fusion scoring
-  5. FFmpeg render → 9:16 vertical split-screen clip
+  5. FFmpeg render â†’ 9:16 vertical split-screen clip
   6. Update DB records
 """
 
@@ -32,7 +42,7 @@ from dataclasses import dataclass
 from app.config import settings
 
 
-# ── Data Types ────────────────────────────────────────────────────
+# â”€â”€ Data Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 @dataclass
 class PipelineResult:
     success: bool
@@ -41,7 +51,7 @@ class PipelineResult:
     error: Optional[str] = None
 
 
-# ── Storage helpers ───────────────────────────────────────────────
+# â”€â”€ Storage helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def _storage_dir() -> Path:
     """Return and create local storage directory."""
     d = Path(settings.LOCAL_STORAGE_DIR)
@@ -61,7 +71,7 @@ def _raw_video_dir() -> Path:
     return d
 
 
-# ── Step 1: Download ──────────────────────────────────────────────
+# â”€â”€ Step 1: Download â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def download_video(source_url: str, output_dir: Path) -> Optional[str]:
     """
     Download a video from YouTube/Twitch using yt-dlp.
@@ -95,7 +105,7 @@ def download_video(source_url: str, output_dir: Path) -> Optional[str]:
         return None
 
 
-# ── Step 2+3+4: Detect Highlights ────────────────────────────────
+# â”€â”€ Step 2+3+4: Detect Highlights â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def detect_highlights(
     video_path: str,
     game: str = "BGMI",
@@ -206,7 +216,7 @@ def _get_video_duration(video_path: str) -> float:
         return 0.0
 
 
-# ── Step 5: FFmpeg Render → 9:16 Vertical Split-screen ───────────
+# â”€â”€ Step 5: FFmpeg Render â†’ 9:16 Vertical Split-screen â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def render_clip_916(
     source_path: str,
     output_path: str,
@@ -218,10 +228,10 @@ def render_clip_916(
     Render a 9:16 vertical split-screen clip using FFmpeg.
 
     Layout (for gaming content):
-      • TOP HALF    — cropped gameplay action (motion-centred)
-      • BOTTOM HALF — second crop region (scoreboard / killfeed area)
+      â€¢ TOP HALF    â€” cropped gameplay action (motion-centred)
+      â€¢ BOTTOM HALF â€” second crop region (scoreboard / killfeed area)
 
-    Output: 1080×1920 (portrait), H.264, 30fps, AAC audio.
+    Output: 1080Ã—1920 (portrait), H.264, 30fps, AAC audio.
     Falls back to a simple 9:16 centre-crop if OpenCV is unavailable.
     """
     out_w, out_h = 1080, 1920          # 9:16
@@ -232,9 +242,9 @@ def render_clip_916(
     crop_w = int(1080 * 9 / 16)       # ~607 px wide from 1080 source h
 
     # Vertical split-screen filter graph:
-    #   [top]    — crop around action centre, scale to 1080×960
-    #   [bottom] — bottom quarter of original frame (killfeed / scoreboard), scale to 1080×960
-    #   vstack   — combine top + bottom → 1080×1920
+    #   [top]    â€” crop around action centre, scale to 1080Ã—960
+    #   [bottom] â€” bottom quarter of original frame (killfeed / scoreboard), scale to 1080Ã—960
+    #   vstack   â€” combine top + bottom â†’ 1080Ã—1920
     filter_complex = (
         # Top: motion-centred crop, scaled to half height
         f"[0:v]trim=start={start_time}:duration={duration},setpts=PTS-STARTPTS,"
@@ -273,17 +283,17 @@ def render_clip_916(
         output_path,
     ]
 
-    print(f"[Pipeline] FFmpeg render: {start_time:.1f}s + {duration:.1f}s → {output_path}")
+    print(f"[Pipeline] FFmpeg render: {start_time:.1f}s + {duration:.1f}s â†’ {output_path}")
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
         if result.returncode != 0:
             print(f"[Pipeline] FFmpeg stderr: {result.stderr[-600:]}")
             # Try simple fallback crop if complex filter failed
             return _render_simple_fallback(source_path, output_path, start_time, duration, watermark)
-        print(f"[Pipeline] Render done → {output_path}")
+        print(f"[Pipeline] Render done â†’ {output_path}")
         return True
     except FileNotFoundError:
-        print("[Pipeline] FFmpeg not found — saving source clip copy as placeholder.")
+        print("[Pipeline] FFmpeg not found â€” saving source clip copy as placeholder.")
         return _copy_fallback(source_path, output_path, start_time, duration)
     except Exception as e:
         print(f"[Pipeline] Render exception: {e}")
@@ -383,7 +393,7 @@ def _copy_fallback(
             return False
 
 
-# ── Main Pipeline ─────────────────────────────────────────────────
+# â”€â”€ Main Pipeline â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async def run_pipeline(
     video_id: str,
     source_url: Optional[str],
@@ -427,7 +437,7 @@ async def run_pipeline(
         except Exception:
             return ""
 
-    # ── 1. Get video file ────────────────────────────────────
+    # â”€â”€ 1. Get video file â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     video_path = local_path
     if not video_path or not Path(video_path).exists():
         if source_url:
@@ -450,7 +460,7 @@ async def run_pipeline(
                 error="No source URL or local path provided",
             )
 
-    # ── 2. Analyze ──────────────────────────────────────────
+    # â”€â”€ 2. Analyze â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     await _update_video("analyzing")
     loop = asyncio.get_running_loop()
     highlights = await loop.run_in_executor(
@@ -464,7 +474,7 @@ async def run_pipeline(
             error="No highlights detected",
         )
 
-    # ── 3. Render clips ─────────────────────────────────────
+    # â”€â”€ 3. Render clips â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     clip_dir = _clip_output_dir(video_id)
     rendered_clips = []
     user_id = await _get_video_user_id()
@@ -497,7 +507,7 @@ async def run_pipeline(
         }
         rendered_clips.append(clip_record)
 
-        # ── Write clip to DB ─────────────────────────────────
+        # â”€â”€ Write clip to DB â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         if db_session and user_id:
             try:
                 clip_obj = Clip(
@@ -524,7 +534,7 @@ async def run_pipeline(
             except Exception as e:
                 print(f"[Pipeline] Clip DB save error: {e}")
 
-    # ── 4. Finalize video record ──────────────────────────────────
+    # â”€â”€ 4. Finalize video record â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     await _update_video("done", local_path=video_path)
     print(f"[Pipeline] Done. {len(rendered_clips)} clips for video {video_id}.")
 
@@ -533,3 +543,4 @@ async def run_pipeline(
         video_id=video_id,
         clips=rendered_clips,
     )
+

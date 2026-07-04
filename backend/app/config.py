@@ -1,9 +1,20 @@
-"""ClipForge AI — Configuration (reads from .env)
+﻿"""ClipForge AI â€” Configuration (reads from .env)
 
 For local SQLite dev, set in your .env:
   DATABASE_URL=sqlite+aiosqlite:///./clipforge.db
   SECRET_KEY=dev-secret-key-change-in-production
 """
+import os
+import sys
+# Inject workspace paths to fix IDE red lines and Render imports
+_app_dir = os.path.dirname(os.path.abspath(__file__))
+while os.path.basename(_app_dir) != 'app' and _app_dir != os.path.dirname(_app_dir):
+    _app_dir = os.path.dirname(_app_dir)
+_backend_dir = os.path.dirname(_app_dir)
+_root_dir = os.path.dirname(_backend_dir)
+if _backend_dir not in sys.path: sys.path.insert(0, _backend_dir)
+if _root_dir not in sys.path: sys.path.insert(0, _root_dir)
+
 
 from pydantic_settings import BaseSettings
 from typing import List
@@ -16,15 +27,15 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "dev-secret-key-please-change-in-production-32c"
     DEBUG: bool = True
 
-    # Database — defaults to local SQLite for zero-config local dev
+    # Database â€” defaults to local SQLite for zero-config local dev
     DATABASE_URL: str = "sqlite+aiosqlite:///./clipforge.db"
 
-    # Redis / Celery (optional — workers disabled in dev mode)
+    # Redis / Celery (optional â€” workers disabled in dev mode)
     REDIS_URL:     str = "redis://localhost:6379/0"
     CELERY_BROKER: str = "redis://localhost:6379/0"
     CELERY_BACKEND: str = "redis://localhost:6379/1"
 
-    # AWS S3 (leave empty for local dev — files saved locally)
+    # AWS S3 (leave empty for local dev â€” files saved locally)
     AWS_ACCESS_KEY_ID:     str = ""
     AWS_SECRET_ACCESS_KEY: str = ""
     AWS_REGION:            str = "ap-south-1"
@@ -59,7 +70,7 @@ class Settings(BaseSettings):
     # Sentry (optional)
     SENTRY_DSN: str = ""
 
-    # CORS — allow local static files & dev server
+    # CORS â€” allow local static files & dev server
     CORS_ORIGINS: List[str] = [
         "http://localhost:3000",
         "http://127.0.0.1:5500",
@@ -88,3 +99,4 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+

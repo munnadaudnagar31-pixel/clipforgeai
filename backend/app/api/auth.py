@@ -1,11 +1,22 @@
-"""ClipForge AI — Auth API Routes (JWT + Email/Password)
+﻿"""ClipForge AI â€” Auth API Routes (JWT + Email/Password)
 
 Endpoints:
-  POST /api/auth/register  — create account, return JWT
-  POST /api/auth/login     — JSON email/password login, return JWT
-  POST /api/auth/token     — OAuth2 form login (Swagger UI compatible)
-  GET  /api/auth/me        — decode JWT → return user profile
+  POST /api/auth/register  â€” create account, return JWT
+  POST /api/auth/login     â€” JSON email/password login, return JWT
+  POST /api/auth/token     â€” OAuth2 form login (Swagger UI compatible)
+  GET  /api/auth/me        â€” decode JWT â†’ return user profile
 """
+import os
+import sys
+# Inject workspace paths to fix IDE red lines and Render imports
+_app_dir = os.path.dirname(os.path.abspath(__file__))
+while os.path.basename(_app_dir) != 'app' and _app_dir != os.path.dirname(_app_dir):
+    _app_dir = os.path.dirname(_app_dir)
+_backend_dir = os.path.dirname(_app_dir)
+_root_dir = os.path.dirname(_backend_dir)
+if _backend_dir not in sys.path: sys.path.insert(0, _backend_dir)
+if _root_dir not in sys.path: sys.path.insert(0, _root_dir)
+
 
 from datetime import datetime, timedelta
 from typing import Optional
@@ -24,12 +35,12 @@ from app.models.models import User
 
 router = APIRouter()
 
-# ── Crypto ────────────────────────────────────────────────────────
+# â”€â”€ Crypto â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)
 
 
-# ── Schemas ───────────────────────────────────────────────────────
+# â”€â”€ Schemas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class RegisterRequest(BaseModel):
     name: str
     email: EmailStr
@@ -37,7 +48,7 @@ class RegisterRequest(BaseModel):
 
 
 class LoginRequest(BaseModel):
-    """JSON body login — used by the frontend fetch() calls."""
+    """JSON body login â€” used by the frontend fetch() calls."""
     email: EmailStr
     password: str
 
@@ -58,7 +69,7 @@ class UserResponse(BaseModel):
     created_at: str
 
 
-# ── JWT Helpers ───────────────────────────────────────────────────
+# â”€â”€ JWT Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def create_access_token(subject: str) -> str:
     expire = datetime.utcnow() + timedelta(seconds=settings.ACCESS_TOKEN_EXPIRE)
     return jwt.encode(
@@ -106,11 +117,11 @@ def _user_to_response(user: User) -> UserResponse:
     )
 
 
-# ── Routes ────────────────────────────────────────────────────────
+# â”€â”€ Routes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @router.post("/register", response_model=TokenResponse, status_code=201)
 async def register(payload: RegisterRequest, db: AsyncSession = Depends(get_db)):
-    """Email/password registration — hashes password with bcrypt, returns JWT."""
+    """Email/password registration â€” hashes password with bcrypt, returns JWT."""
     # Check duplicate
     result = await db.execute(select(User).where(User.email == payload.email))
     if result.scalar_one_or_none():
@@ -135,7 +146,7 @@ async def register(payload: RegisterRequest, db: AsyncSession = Depends(get_db))
 
 @router.post("/login", response_model=TokenResponse)
 async def login_json(payload: LoginRequest, db: AsyncSession = Depends(get_db)):
-    """JSON body email/password login — used by frontend fetch() calls."""
+    """JSON body email/password login â€” used by frontend fetch() calls."""
     result = await db.execute(select(User).where(User.email == payload.email))
     user = result.scalar_one_or_none()
     if not user or not user.password_hash or not pwd_context.verify(payload.password, user.password_hash):
@@ -151,7 +162,7 @@ async def login_form(
     form: OAuth2PasswordRequestForm = Depends(),
     db: AsyncSession = Depends(get_db),
 ):
-    """OAuth2 form login — used by Swagger UI /api/docs."""
+    """OAuth2 form login â€” used by Swagger UI /api/docs."""
     result = await db.execute(select(User).where(User.email == form.username))
     user = result.scalar_one_or_none()
     if not user or not user.password_hash or not pwd_context.verify(form.password, user.password_hash):
@@ -162,14 +173,15 @@ async def login_form(
 
 @router.get("/me", response_model=UserResponse)
 async def me(current_user: User = Depends(get_current_user)):
-    """Decode JWT from Authorization header → return authenticated user profile."""
+    """Decode JWT from Authorization header â†’ return authenticated user profile."""
     return _user_to_response(current_user)
 
 
 @router.post("/logout")
 async def logout():
     """
-    JWT logout is stateless — the client drops the token from localStorage.
+    JWT logout is stateless â€” the client drops the token from localStorage.
     This endpoint exists so the frontend can fire a semantic logout call.
     """
     return {"message": "Logged out successfully."}
+

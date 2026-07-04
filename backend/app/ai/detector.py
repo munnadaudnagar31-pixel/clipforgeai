@@ -1,15 +1,25 @@
+﻿import os
+import sys
+# Inject workspace paths to fix IDE red lines and Render imports
+_app_dir = os.path.dirname(os.path.abspath(__file__))
+while os.path.basename(_app_dir) != 'app' and _app_dir != os.path.dirname(_app_dir):
+    _app_dir = os.path.dirname(_app_dir)
+_backend_dir = os.path.dirname(_app_dir)
+_root_dir = os.path.dirname(_backend_dir)
+if _backend_dir not in sys.path: sys.path.insert(0, _backend_dir)
+if _root_dir not in sys.path: sys.path.insert(0, _root_dir)
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-"""ClipForge AI — AI Highlight Detection Engine
+"""ClipForge AI â€” AI Highlight Detection Engine
 
 Pipeline:
-  1. Audio Analysis  — librosa RMS peaks → timestamps
-  2. Computer Vision — YOLO v8 killfeed detection → events + timestamps
-  3. Chat Sentiment  — Twitch/YouTube chat emoji/keyword clustering (optional)
-  4. Fusion Scoring  — Weighted multi-signal score per second
-  5. Clip Selection  — Top-N windows, deduplication
+  1. Audio Analysis  â€” librosa RMS peaks â†’ timestamps
+  2. Computer Vision â€” YOLO v8 killfeed detection â†’ events + timestamps
+  3. Chat Sentiment  â€” Twitch/YouTube chat emoji/keyword clustering (optional)
+  4. Fusion Scoring  â€” Weighted multi-signal score per second
+  5. Clip Selection  â€” Top-N windows, deduplication
 """
 
 import os
@@ -19,7 +29,7 @@ from dataclasses import dataclass
 
 from app.config import settings
 
-# ── Optional heavy-dependency imports (fail-safe) ─────────────────
+# â”€â”€ Optional heavy-dependency imports (fail-safe) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # The server starts normally even if these packages are not installed.
 # Install them only when you need the full AI pipeline:
 #   pip install opencv-python-headless numpy librosa soundfile ultralytics
@@ -49,7 +59,7 @@ except ImportError:
     _YOLO_AVAILABLE = False
 
 
-# ── Data structures ───────────────────────────────────────────────
+# â”€â”€ Data structures â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 @dataclass
 class AudioPeak:
     timestamp: float   # seconds
@@ -73,7 +83,7 @@ class HighlightMoment:
     title: str
 
 
-# ── Audio Analysis ────────────────────────────────────────────────
+# â”€â”€ Audio Analysis â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class AudioAnalyzer:
     """Detects audio peaks using librosa RMS energy."""
 
@@ -88,7 +98,7 @@ class AudioAnalyzer:
             print(f"[AudioAnalyzer] Load error: {e}")
             return []
 
-        # Compute RMS energy with hop_length=512 → ~23ms per frame
+        # Compute RMS energy with hop_length=512 â†’ ~23ms per frame
         frame_length = 2048
         hop_length = 512
         rms = librosa.feature.rms(y=y, frame_length=frame_length, hop_length=hop_length)[0]
@@ -116,7 +126,7 @@ class AudioAnalyzer:
         return peaks
 
 
-# ── Computer Vision Detector ──────────────────────────────────────
+# â”€â”€ Computer Vision Detector â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class CVDetector:
     """YOLO v8 game UI event detector."""
 
@@ -202,16 +212,16 @@ class CVDetector:
         return events
 
 
-# ── Fusion Scorer ─────────────────────────────────────────────────
+# â”€â”€ Fusion Scorer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class HighlightScorer:
     """
-    Fuses audio peaks + CV events → ranked highlight windows.
+    Fuses audio peaks + CV events â†’ ranked highlight windows.
 
     Score formula per window:
       base     = 1.0 for audio peak
       cv_boost = {kill:3.5, multi_kill:5.0, victory:4.0, headshot:3.0, ...}
-      density  = 1 + 0.5 × (num events in window − 1)
-      final    = min(10, base + cv_boost × density)
+      density  = 1 + 0.5 Ã— (num events in window âˆ’ 1)
+      final    = min(10, base + cv_boost Ã— density)
     """
 
     CV_WEIGHTS = {
@@ -345,7 +355,7 @@ class HighlightScorer:
         return "AI Highlight Clip"
 
 
-# ── Main Detector (used by workers) ──────────────────────────────
+# â”€â”€ Main Detector (used by workers) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class ClipDetector:
     """End-to-end highlight detection for a local video file."""
 
@@ -362,7 +372,7 @@ class ClipDetector:
         max_clips: int = 5,
         clip_duration: int = 30,
     ) -> List[HighlightMoment]:
-        """Full pipeline: audio → CV → score → return highlights."""
+        """Full pipeline: audio â†’ CV â†’ score â†’ return highlights."""
         video_path = str(video_path)
         print(f"\n[ClipDetector] Starting pipeline for: {video_path}")
 
@@ -391,3 +401,4 @@ class ClipDetector:
 
         print(f"[ClipDetector] Pipeline complete. {len(highlights)} highlights.")
         return highlights
+

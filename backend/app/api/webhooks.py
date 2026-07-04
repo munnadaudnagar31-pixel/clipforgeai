@@ -1,8 +1,19 @@
-"""ClipForge AI — Stripe Webhook Handler
+﻿"""ClipForge AI â€” Stripe Webhook Handler
 
 Handles Stripe billing events: checkout completed, subscription deleted,
 payment failed. Uses plain string plan values (no PlanEnum).
 """
+import os
+import sys
+# Inject workspace paths to fix IDE red lines and Render imports
+_app_dir = os.path.dirname(os.path.abspath(__file__))
+while os.path.basename(_app_dir) != 'app' and _app_dir != os.path.dirname(_app_dir):
+    _app_dir = os.path.dirname(_app_dir)
+_backend_dir = os.path.dirname(_app_dir)
+_root_dir = os.path.dirname(_backend_dir)
+if _backend_dir not in sys.path: sys.path.insert(0, _backend_dir)
+if _root_dir not in sys.path: sys.path.insert(0, _root_dir)
+
 
 from fastapi import APIRouter, Request, HTTPException
 from sqlalchemy import update, select
@@ -13,7 +24,7 @@ from app.models.models import User
 
 router = APIRouter()
 
-# Price ID → plan string mapping (set in .env)
+# Price ID â†’ plan string mapping (set in .env)
 def _price_to_plan() -> dict:
     return {
         settings.STRIPE_PRICE_PRO:     "pro",
@@ -78,3 +89,4 @@ async def stripe_webhook(request: Request):
         await db.commit()
 
     return {"received": True}
+

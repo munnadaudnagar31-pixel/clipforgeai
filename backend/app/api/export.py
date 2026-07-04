@@ -1,8 +1,19 @@
-"""ClipForge AI — Export API Routes
+﻿"""ClipForge AI â€” Export API Routes
 
 Handles publishing clips to social platforms and tracking export history.
-All model fields use plain strings (no Enum objects) — compatible with SQLite + Postgres.
+All model fields use plain strings (no Enum objects) â€” compatible with SQLite + Postgres.
 """
+import os
+import sys
+# Inject workspace paths to fix IDE red lines and Render imports
+_app_dir = os.path.dirname(os.path.abspath(__file__))
+while os.path.basename(_app_dir) != 'app' and _app_dir != os.path.dirname(_app_dir):
+    _app_dir = os.path.dirname(_app_dir)
+_backend_dir = os.path.dirname(_app_dir)
+_root_dir = os.path.dirname(_backend_dir)
+if _backend_dir not in sys.path: sys.path.insert(0, _backend_dir)
+if _root_dir not in sys.path: sys.path.insert(0, _root_dir)
+
 
 from typing import List, Optional
 from datetime import datetime
@@ -22,7 +33,7 @@ router = APIRouter()
 VALID_PLATFORMS = {"youtube", "tiktok", "instagram", "download"}
 
 
-# ── Schemas ───────────────────────────────────────────────────────
+# â”€â”€ Schemas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class PublishRequest(BaseModel):
     clip_ids:    List[str]
     platforms:   List[str]           # ["youtube", "tiktok", "instagram", "download"]
@@ -47,7 +58,7 @@ class ExportHistoryItem(BaseModel):
         from_attributes = True
 
 
-# ── Routes ────────────────────────────────────────────────────────
+# â”€â”€ Routes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 @router.post("/publish", status_code=202)
 async def publish_clips(
     payload: PublishRequest,
@@ -128,7 +139,7 @@ async def publish_clips(
             db.add(export)
             await db.flush()  # get export.id
 
-            # Try to enqueue Celery publish task (optional — fails silently in dev)
+            # Try to enqueue Celery publish task (optional â€” fails silently in dev)
             try:
                 from app.workers.publish_worker import publish_clip_task
                 publish_clip_task.delay(
@@ -218,3 +229,4 @@ async def export_stats(
         "total_views":     total_views,
         "by_platform":     by_platform,
     }
+

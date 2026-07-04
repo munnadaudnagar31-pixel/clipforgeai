@@ -3,8 +3,7 @@
   "exclude": ["**/__pycache__"],
   "pythonVersion": "3.11",
   "pythonPlatform": "Windows",
-  "venvPath": ".",
-  "venv": ".venv",
+  "pythonPath": "./python-local/python.exe",
   "typeCheckingMode": "basic",
   "reportMissingImports": "warning",
   "reportMissingModuleSource": "warning",
@@ -12,5 +11,5 @@
   "reportAttributeAccessIssue": "warning",
   "useLibraryCodeForTypes": true,
   "autoSearchPaths": true,
-  "extraPaths": ["."]
+  "extraPaths": [".", "./python-local/Lib/site-packages"]
 }

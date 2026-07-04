@@ -1,9 +1,19 @@
+﻿import os
+import sys
+# Inject workspace paths to fix IDE red lines and Render imports
+_app_dir = os.path.dirname(os.path.abspath(__file__))
+while os.path.basename(_app_dir) != 'app' and _app_dir != os.path.dirname(_app_dir):
+    _app_dir = os.path.dirname(_app_dir)
+_backend_dir = os.path.dirname(_app_dir)
+_root_dir = os.path.dirname(_backend_dir)
+if _backend_dir not in sys.path: sys.path.insert(0, _backend_dir)
+if _root_dir not in sys.path: sys.path.insert(0, _root_dir)
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 """
-ClipForge AI — FFmpeg Rendering Worker
+ClipForge AI â€” FFmpeg Rendering Worker
 Handles: 9:16 smart crop, audio mixing, music overlay, SFX insertion, watermark.
 """
 
@@ -16,7 +26,7 @@ from typing import Optional, Tuple
 from app.config import settings
 
 
-# ── Smart Reframing ───────────────────────────────────────────────
+# â”€â”€ Smart Reframing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class SmartReframer:
     """
     Detects the action region in a 16:9 frame using optical flow
@@ -30,7 +40,7 @@ class SmartReframer:
         duration: float,
         src_w: int = 1920,
         src_h: int = 1080,
-        target_w: int = 608,   # 1080 * 9/16 ≈ 608
+        target_w: int = 608,   # 1080 * 9/16 â‰ˆ 608
     ) -> int:
         """
         Returns the horizontal crop offset (x) that keeps the most
@@ -79,7 +89,7 @@ class SmartReframer:
             return (src_w - target_w) // 2
 
 
-# ── FFmpeg Renderer ───────────────────────────────────────────────
+# â”€â”€ FFmpeg Renderer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class FFmpegRenderer:
     """
     Renders a highlight clip from a source video using FFmpeg.
@@ -162,7 +172,7 @@ class FFmpegRenderer:
         if result.returncode != 0:
             raise RuntimeError(f"FFmpeg failed:\n{result.stderr}")
 
-        print(f"[FFmpegRenderer] Done → {output_path}")
+        print(f"[FFmpegRenderer] Done â†’ {output_path}")
         return output_path
 
     def _crop_filter(
@@ -183,7 +193,7 @@ class FFmpegRenderer:
             return f"crop={target_w}:{src_h}:{x_offset}:0"
         elif aspect == "1:1":
             return "crop=ih:ih:(iw-ih)/2:0"
-        else:  # 16:9 — just use source (or pad)
+        else:  # 16:9 â€” just use source (or pad)
             return "copy"
 
     def render_batch(
@@ -231,7 +241,7 @@ class FFmpegRenderer:
         return rendered
 
 
-# ── Thumbnail Generator ───────────────────────────────────────────
+# â”€â”€ Thumbnail Generator â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def generate_thumbnail(video_path: str, timestamp: float, output_path: str) -> str:
     """Extract a single frame as JPEG thumbnail."""
     cmd = [
@@ -244,3 +254,4 @@ def generate_thumbnail(video_path: str, timestamp: float, output_path: str) -> s
     ]
     subprocess.run(cmd, capture_output=True)
     return output_path
+

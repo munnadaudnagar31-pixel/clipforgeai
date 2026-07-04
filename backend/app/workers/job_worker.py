@@ -1,10 +1,20 @@
+﻿import os
+import sys
+# Inject workspace paths to fix IDE red lines and Render imports
+_app_dir = os.path.dirname(os.path.abspath(__file__))
+while os.path.basename(_app_dir) != 'app' and _app_dir != os.path.dirname(_app_dir):
+    _app_dir = os.path.dirname(_app_dir)
+_backend_dir = os.path.dirname(_app_dir)
+_root_dir = os.path.dirname(_backend_dir)
+if _backend_dir not in sys.path: sys.path.insert(0, _backend_dir)
+if _root_dir not in sys.path: sys.path.insert(0, _root_dir)
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 """
-ClipForge AI — Celery Background Worker
-Processes: video download → AI detection → rendering → S3/local save → DB update
+ClipForge AI â€” Celery Background Worker
+Processes: video download â†’ AI detection â†’ rendering â†’ S3/local save â†’ DB update
 
 Uses plain string status/plan values throughout (no Enum objects).
 Sync SQLAlchemy session used inside Celery task (not async).
@@ -23,7 +33,7 @@ from sqlalchemy.orm import sessionmaker
 from app.config import settings
 
 
-# ── Celery App ────────────────────────────────────────────────────
+# â”€â”€ Celery App â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 celery_app = Celery(
     "clipforge",
     broker=settings.CELERY_BROKER,
@@ -42,7 +52,7 @@ celery_app.conf.update(
 )
 
 
-# ── S3 Helper ─────────────────────────────────────────────────────
+# â”€â”€ S3 Helper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class S3Client:
     def __init__(self):
         import boto3
@@ -72,13 +82,13 @@ class S3Client:
         self.client.delete_object(Bucket=bucket, Key=s3_key)
 
 
-# ── Sync DB Session Factory ───────────────────────────────────────
+# â”€â”€ Sync DB Session Factory â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def _make_sync_session():
     """
     Create a synchronous SQLAlchemy session factory.
     Converts async driver URLs to their sync equivalents:
-      postgresql+asyncpg  → postgresql+psycopg2
-      sqlite+aiosqlite    → sqlite
+      postgresql+asyncpg  â†’ postgresql+psycopg2
+      sqlite+aiosqlite    â†’ sqlite
     """
     url = (
         settings.DATABASE_URL
@@ -91,7 +101,7 @@ def _make_sync_session():
     return sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
 
-# ── yt-dlp Downloader ─────────────────────────────────────────────
+# â”€â”€ yt-dlp Downloader â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def _download_video(url: str, output_dir: str) -> str:
     """Download a Twitch/YouTube VOD using yt-dlp. Returns local file path."""
     try:
@@ -117,7 +127,7 @@ def _download_video(url: str, output_dir: str) -> str:
     return filename
 
 
-# ── DB Helpers ────────────────────────────────────────────────────
+# â”€â”€ DB Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def _update_video_status(video_id: str, status: str, Session) -> None:
     from app.models.models import Video
     with Session() as session:
@@ -147,7 +157,7 @@ def _get_video_user_id(video_id: str, session) -> str:
     return str(row) if row else ""
 
 
-# ── Main Celery Task ──────────────────────────────────────────────
+# â”€â”€ Main Celery Task â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 @celery_app.task(bind=True, name="process_video")
 def process_video_task(
     self,
@@ -181,7 +191,7 @@ def process_video_task(
 
     with tempfile.TemporaryDirectory() as tmpdir:
 
-        # ── Step 1: Obtain raw video ────────────────────────────────
+        # â”€â”€ Step 1: Obtain raw video â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         self.update_state(state="PROGRESS", meta={"step": "downloading", "pct": 5})
         _update_video_status(video_id, "downloading", Session)
 
@@ -202,7 +212,7 @@ def process_video_task(
             _mark_video_failed(video_id, err, Session)
             raise ValueError(err)
 
-        # ── Step 2: AI Detection ────────────────────────────────────
+        # â”€â”€ Step 2: AI Detection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         _update_video_status(video_id, "analyzing", Session)
         self.update_state(state="PROGRESS", meta={"step": "analyzing", "pct": 25})
 
@@ -221,7 +231,7 @@ def process_video_task(
             _mark_video_failed(video_id, "No highlights detected", Session)
             return {"status": "failed", "reason": "No highlights detected"}
 
-        # ── Step 3: Render clips ────────────────────────────────────
+        # â”€â”€ Step 3: Render clips â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         self.update_state(state="PROGRESS", meta={"step": "rendering", "pct": 55})
         render_dir = Path(tmpdir) / "rendered"
         render_dir.mkdir(parents=True, exist_ok=True)
@@ -234,7 +244,7 @@ def process_video_task(
         if not use_s3:
             local_clips_dir.mkdir(parents=True, exist_ok=True)
 
-        # ── Step 4: Upload/save + update DB ────────────────────────
+        # â”€â”€ Step 4: Upload/save + update DB â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         self.update_state(state="PROGRESS", meta={"step": "uploading", "pct": 80})
         created_clip_ids = []
 
@@ -322,3 +332,4 @@ def process_video_task(
     self.update_state(state="PROGRESS", meta={"step": "done", "pct": 100})
     print(f"[Worker] Complete. Created {len(created_clip_ids)} clips.")
     return {"status": "done", "clips": created_clip_ids}
+

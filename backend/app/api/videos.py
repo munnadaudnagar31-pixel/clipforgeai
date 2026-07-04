@@ -1,15 +1,26 @@
-"""ClipForge AI — Videos API Routes
+﻿"""ClipForge AI â€” Videos API Routes
 
 Supports two modes:
-  • Dev mode  (no Redis/Celery): runs pipeline as a FastAPI BackgroundTask
-  • Prod mode (Redis available): queues to Celery worker
+  â€¢ Dev mode  (no Redis/Celery): runs pipeline as a FastAPI BackgroundTask
+  â€¢ Prod mode (Redis available): queues to Celery worker
 
-POST /api/videos/ingest-url   — submit a YouTube/Twitch URL
-POST /api/videos/upload       — upload a local MP4 file
-GET  /api/videos/             — list user's videos
-GET  /api/videos/{id}/status  — poll processing status + clips
-DELETE /api/videos/{id}       — delete video + clips
+POST /api/videos/ingest-url   â€” submit a YouTube/Twitch URL
+POST /api/videos/upload       â€” upload a local MP4 file
+GET  /api/videos/             â€” list user's videos
+GET  /api/videos/{id}/status  â€” poll processing status + clips
+DELETE /api/videos/{id}       â€” delete video + clips
 """
+import os
+import sys
+# Inject workspace paths to fix IDE red lines and Render imports
+_app_dir = os.path.dirname(os.path.abspath(__file__))
+while os.path.basename(_app_dir) != 'app' and _app_dir != os.path.dirname(_app_dir):
+    _app_dir = os.path.dirname(_app_dir)
+_backend_dir = os.path.dirname(_app_dir)
+_root_dir = os.path.dirname(_backend_dir)
+if _backend_dir not in sys.path: sys.path.insert(0, _backend_dir)
+if _root_dir not in sys.path: sys.path.insert(0, _root_dir)
+
 
 import os
 import uuid
@@ -30,11 +41,11 @@ from app.api.auth import get_current_user
 router = APIRouter()
 
 
-# ── Plan limits ───────────────────────────────────────────────────
+# â”€â”€ Plan limits â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 PLAN_CLIP_LIMITS = {"free": 3, "pro": 30, "creator": 9999, "agency": 9999}
 
 
-# ── Schemas ───────────────────────────────────────────────────────
+# â”€â”€ Schemas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class IngestUrlRequest(BaseModel):
     url:           str
     game:          str = "BGMI"
@@ -53,7 +64,7 @@ class VideoStatusResponse(BaseModel):
     error_msg:   Optional[str] = None
 
 
-# ── Background pipeline runner ────────────────────────────────────
+# â”€â”€ Background pipeline runner â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async def _run_pipeline_bg(
     video_id: str,
     source_url: Optional[str],
@@ -98,7 +109,7 @@ async def _run_pipeline_bg(
                 pass
 
 
-# ── Routes ────────────────────────────────────────────────────────
+# â”€â”€ Routes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @router.post("/ingest-url", status_code=202)
 async def ingest_url(
@@ -130,7 +141,7 @@ async def ingest_url(
     # Create DB record
     video = Video(
         user_id=str(current_user.id),
-        title=f"{payload.game} Stream — {source.capitalize()} Import",
+        title=f"{payload.game} Stream â€” {source.capitalize()} Import",
         source_url=url,
         game=payload.game,
         source=source,
@@ -341,3 +352,4 @@ async def delete_video(
     if not video:
         raise HTTPException(404, "Video not found.")
     await db.delete(video)
+
