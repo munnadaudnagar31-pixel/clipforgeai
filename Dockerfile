@@ -1,49 +1,27 @@
-# ── Stage 1: Build Frontend ─────────────────────────
-FROM node:20-alpine AS frontend-builder
-WORKDIR /app/frontend
-
-# Copy frontend assets (HTML, CSS, JS, etc.)
-COPY . /app/frontend/
-# We don't have package.json for frontend as it's vanilla JS
-# But we copy it to a specific directory so we can serve it later
-
-# ── Stage 2: Backend + Final Image ──────────────────
-FROM python:3.11-slim
-
-# System dependencies for OpenCV, FFmpeg, and Python
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ffmpeg \
-    libgl1-mesa-glx \
-    libglib2.0-0 \
-    libsm6 \
-    libxext6 \
-    libxrender-dev \
-    libgomp1 \
-    git \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+FROM python:3.10-slim
 
 WORKDIR /app
 
-# Install Python deps (leverage Docker cache)
-COPY backend/requirements-core.txt ./backend/
-RUN pip install --no-cache-dir -r backend/requirements-core.txt
+# Install system-level dependencies for OpenCV and FFmpeg
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ffmpeg \
+    libgl1-mesa-glx \
+    libsm6 \
+    libxext6 \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy backend code
-COPY backend/ ./backend/
+# Copy backend requirements first to leverage Docker cache
+COPY backend/requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
-# Copy frontend code from stage 1
-COPY --from=frontend-builder /app/frontend ./frontend
+# Copy all project files
+COPY . /app/
 
-# Create directories for temp files and local DB
-RUN mkdir -p /tmp/clips /app/models /app/backend/storage /app/backend/data
-ENV DATABASE_URL="sqlite+aiosqlite:////app/backend/data/clipforge.db"
-
-# Expose port
+# Expose port for FastAPI
 EXPOSE 8000
 
-# Start script
-COPY start.sh /app/
-RUN chmod +x /app/start.sh
+# Set working directory to backend so Python imports resolve correctly
+WORKDIR /app/backend
 
-CMD ["/app/start.sh"]
+# Start FastAPI server via Uvicorn
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
