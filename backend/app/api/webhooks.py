@@ -18,9 +18,9 @@ if _root_dir not in sys.path: sys.path.insert(0, _root_dir)
 from fastapi import APIRouter, Request, HTTPException
 from sqlalchemy import update, select
 
-from app.config import settings
-from app.database import AsyncSessionLocal
-from app.models.models import User
+from ..config import settings
+from ..database import AsyncSessionLocal
+from ..models.models import User
 
 router = APIRouter()
 

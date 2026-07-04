@@ -19,7 +19,7 @@ if _root_dir not in sys.path: sys.path.insert(0, _root_dir)
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.pool import StaticPool
-from app.config import settings
+from .config import settings
 
 _is_sqlite = settings.DATABASE_URL.startswith("sqlite")
 

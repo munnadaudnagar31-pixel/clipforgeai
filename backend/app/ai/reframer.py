@@ -23,7 +23,7 @@ import tempfile
 import uuid
 from pathlib import Path
 from typing import Optional, Tuple
-from app.config import settings
+from ..config import settings
 
 
 # â”€â”€ Smart Reframing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
