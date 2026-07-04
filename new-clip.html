@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Clip — ClipForge AI</title>
+  <meta name="description" content="Generate a new AI gaming highlight clip. Paste your Twitch or YouTube link or upload raw footage." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta property="og:title" content="New Clip — ClipForge AI" />
+  <meta property="og:description" content="Generate a new AI gaming highlight clip from your Twitch or YouTube stream." />
+  <meta property="og:image" content="https://clipforge.ai/assets/og-image.png" />
+  <meta property="og:site_name" content="ClipForge AI" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/dashboard.css" />
+</head>
+<body>
+<div class="dash-layout">
+
+  <!-- Sidebar (reusable) -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">⚡</div>
+        <span class="logo-text">ClipForge<span class="logo-ai">AI</span></span>
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-title">Main</div>
+      <a href="dashboard.html" class="sidebar-link" data-page="dashboard.html"><span class="s-icon">🏠</span> Dashboard</a>
+      <a href="new-clip.html" class="sidebar-link active" data-page="new-clip.html"><span class="s-icon">➕</span> New Clip<span class="sidebar-badge">New</span></a>
+      <a href="my-clips.html" class="sidebar-link" data-page="my-clips.html"><span class="s-icon">🎬</span> My Clips</a>
+      <a href="my-videos.html" class="sidebar-link" data-page="my-videos.html"><span class="s-icon">📹</span> My Videos</a>
+      <div class="sidebar-section-title">Publish</div>
+      <a href="export.html" class="sidebar-link" data-page="export.html"><span class="s-icon">📤</span> Export Hub</a>
+      <div class="sidebar-section-title">Account</div>
+      <a href="settings.html" class="sidebar-link" data-page="settings.html"><span class="s-icon">⚙️</span> Settings</a>
+      <a href="pricing.html" class="sidebar-link"><span class="s-icon">👑</span> Upgrade Plan</a>
+      <a href="index.html" class="sidebar-link"><span class="s-icon">🌐</span> Back to Site</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar">RK</div>
+        <div><div class="user-name">Raj Khiladi</div><div class="user-plan">⚡ Pro Plan</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="topbar-icon-btn" id="sidebarToggle">☰</button>
+        <span class="dash-page-title">Generate New Clip</span>
+      </div>
+      <div class="dash-topbar-right">
+        <span style="font-size:0.82rem;color:var(--text-muted);">Credits: <strong style="color:var(--accent-purple-light);">12 remaining</strong></span>
+      </div>
+    </div>
+
+    <div class="dash-content page-enter">
+      <div style="display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start;">
+
+        <!-- Left: Input Panel -->
+        <div style="display:flex;flex-direction:column;gap:24px;">
+
+          <!-- Tab: URL vs Upload -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">🎯 Video Source</span>
+            </div>
+            <div class="card-body">
+              <!-- Input type tabs -->
+              <div class="settings-nav" style="margin-bottom:24px;">
+                <button class="settings-tab active" data-tab="url" id="tabUrl">🔗 Paste URL</button>
+                <button class="settings-tab" data-tab="upload" id="tabUpload">📁 Upload File</button>
+              </div>
+
+              <!-- URL Panel -->
+              <div id="panel-url">
+                <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">Supports YouTube VODs, Twitch VODs, and direct video links</p>
+                <div class="url-input-wrap" style="margin-bottom:16px;">
+                  <div class="url-input-icon">🔗</div>
+                  <input
+                    type="url"
+                    class="url-input-field"
+                    id="streamUrl"
+                    placeholder="https://www.twitch.tv/videos/123456789  or  https://youtu.be/..."
+                  />
+                </div>
+                <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                  <div style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--text-muted);">✅ YouTube VODs</div>
+                  <div style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--text-muted);">✅ Twitch VODs</div>
+                  <div style="display:flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--text-muted);">✅ Direct MP4 links</div>
+                </div>
+              </div>
+
+              <!-- Upload Panel -->
+              <div id="panel-upload" style="display:none;">
+                <div class="upload-zone" id="uploadZone">
+                  <div class="upload-zone-icon">🎮</div>
+                  <p class="upload-zone-title">Drop your gameplay footage here</p>
+                  <p class="upload-zone-sub">MP4, MOV, AVI, MKV — Max 10 GB</p>
+                  <button class="btn btn-outline" onclick="document.getElementById('fileInput').click()">Browse Files</button>
+                  <input type="file" id="fileInput" accept="video/*" style="display:none;" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Game Selection -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">🎮 Select Game</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">Used to calibrate UI detection models</span>
+            </div>
+            <div class="card-body">
+              <div class="game-selector">
+                <div class="game-option selected" data-game="BGMI">
+                  <div class="game-option-icon">🎯</div>
+                  <div class="game-option-name">BGMI</div>
+                </div>
+                <div class="game-option" data-game="VALORANT">
+                  <div class="game-option-icon">💥</div>
+                  <div class="game-option-name">VALORANT</div>
+                </div>
+                <div class="game-option" data-game="WARZONE">
+                  <div class="game-option-icon">🪖</div>
+                  <div class="game-option-name">Warzone</div>
+                </div>
+                <div class="game-option" data-game="FREE_FIRE">
+                  <div class="game-option-icon">🏹</div>
+                  <div class="game-option-name">Free Fire</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Settings -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">🧠 AI Detection Settings</span></div>
+            <div class="card-body">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label">Max clips to generate</label>
+                  <select class="form-input form-select" id="maxClips">
+                    <option>3 clips</option>
+                    <option selected>5 clips</option>
+                    <option>8 clips</option>
+                    <option>10 clips</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label">Clip duration</label>
+                  <select class="form-input form-select" id="clipDuration">
+                    <option>15 seconds</option>
+                    <option selected>30 seconds</option>
+                    <option>60 seconds</option>
+                    <option>90 seconds</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label">Export format</label>
+                  <select class="form-input form-select" id="exportFormat">
+                    <option>9:16 Vertical (Shorts)</option>
+                    <option>16:9 Horizontal</option>
+                    <option>1:1 Square</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label">Output quality</label>
+                  <select class="form-input form-select" id="outputQuality">
+                    <option>720p</option>
+                    <option selected>1080p 60fps</option>
+                    <option>4K (Creator plan)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="toggle-wrap">
+                <div>
+                  <div class="toggle-label">🔊 Audio Peak Detection</div>
+                  <div class="toggle-sub">Detect screams, gunfire, and hype moments</div>
+                </div>
+                <button class="toggle on"></button>
+              </div>
+              <div class="toggle-wrap">
+                <div>
+                  <div class="toggle-label">🤖 YOLO Killfeed Scanning</div>
+                  <div class="toggle-sub">Scan game UI for kill events and multi-kills</div>
+                </div>
+                <button class="toggle on"></button>
+              </div>
+              <div class="toggle-wrap">
+                <div>
+                  <div class="toggle-label">💬 Chat Sentiment Analysis</div>
+                  <div class="toggle-sub">Detect emoji clusters and keyword spikes (Pro+)</div>
+                </div>
+                <button class="toggle on"></button>
+              </div>
+              <div class="toggle-wrap">
+                <div>
+                  <div class="toggle-label">🎵 Auto Music Sync</div>
+                  <div class="toggle-sub">Add trending background music with beat drop sync</div>
+                </div>
+                <button class="toggle on"></button>
+              </div>
+              <div class="toggle-wrap" style="border-bottom:none;">
+                <div>
+                  <div class="toggle-label">😂 Meme SFX Insertion</div>
+                  <div class="toggle-sub">Auto-insert vine boom, bruh sounds at funny moments</div>
+                </div>
+                <button class="toggle"></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <button class="btn btn-primary btn-lg btn-full" id="startAnalysisBtn" onclick="startAnalysis()" style="border-radius:var(--radius-md);padding:18px;">
+            ⚡ Start AI Analysis
+          </button>
+        </div>
+
+        <!-- Right: Progress + Preview -->
+        <div style="display:flex;flex-direction:column;gap:20px;position:sticky;top:80px;">
+
+          <!-- AI Progress Panel -->
+          <div class="card" id="progressCard">
+            <div class="card-header">
+              <span class="card-title">⚡ AI Pipeline</span>
+              <span id="analysisStatus" style="font-size:0.8rem;color:var(--text-muted);">Waiting for input...</span>
+            </div>
+            <div class="card-body">
+              <!-- Overall progress -->
+              <div style="margin-bottom:20px;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                  <span style="font-size:0.82rem;color:var(--text-secondary);">Overall Progress</span>
+                  <span style="font-size:0.82rem;color:var(--accent-purple-light);" id="progressPct">0%</span>
+                </div>
+                <div class="usage-bar-wrap" style="height:10px;">
+                  <div class="usage-bar-fill" id="analysisProgressBar" style="width:0%;transition:width 0.8s ease;"></div>
+                </div>
+              </div>
+
+              <!-- Step-by-step -->
+              <div class="progress-steps">
+                <div class="progress-step" id="step-download">
+                  <div class="p-step-dot">1</div>
+                  <div class="p-step-info">
+                    <div class="p-step-title">Download & Prepare</div>
+                    <div class="p-step-detail" id="detail-download">Waiting to start...</div>
+                  </div>
+                </div>
+                <div class="progress-step" id="step-audio">
+                  <div class="p-step-dot">2</div>
+                  <div class="p-step-info">
+                    <div class="p-step-title">Audio Analysis</div>
+                    <div class="p-step-detail" id="detail-audio">librosa RMS peak detection</div>
+                  </div>
+                </div>
+                <div class="progress-step" id="step-yolo">
+                  <div class="p-step-dot">3</div>
+                  <div class="p-step-info">
+                    <div class="p-step-title">YOLO CV Scan</div>
+                    <div class="p-step-detail" id="detail-yolo">Killfeed + victory detection</div>
+                  </div>
+                </div>
+                <div class="progress-step" id="step-render">
+                  <div class="p-step-dot">4</div>
+                  <div class="p-step-info">
+                    <div class="p-step-title">Render Clips</div>
+                    <div class="p-step-detail" id="detail-render">FFmpeg 9:16 crop + audio mix</div>
+                  </div>
+                </div>
+                <div class="progress-step" id="step-music">
+                  <div class="p-step-dot">5</div>
+                  <div class="p-step-info">
+                    <div class="p-step-title">Music & SFX</div>
+                    <div class="p-step-detail" id="detail-music">Beat sync + meme sounds</div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="clipsReadySection" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);">
+                <p style="font-size:0.88rem;color:var(--accent-green);font-weight:600;margin-bottom:12px;">✅ 5 Clips Ready!</p>
+                <a href="my-clips.html" class="btn btn-primary btn-full">View My Clips →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cost Estimate -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">💰 Cost Estimate</span></div>
+            <div class="card-body" style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
+                <span style="color:var(--text-muted);">5 clips × 30s @ 1080p</span>
+                <span>1 credit</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
+                <span style="color:var(--text-muted);">GPU processing time</span>
+                <span style="color:var(--accent-green);">Included</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:0.85rem;border-top:1px solid var(--border);padding-top:10px;font-weight:600;">
+                <span>Credits remaining after</span>
+                <span class="gradient-text">11 / 30</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tips -->
+          <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:var(--radius-md);padding:16px;">
+            <p style="font-size:0.8rem;font-weight:600;color:var(--accent-amber);margin-bottom:8px;">💡 Pro Tip</p>
+            <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6;">For best results, use streams where you were playing for at least 1 hour. More gameplay = more highlight moments detected.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="scripts/main.js"></script>
+<script src="scripts/app.js"></script>
+<script>
+// Tab switching
+document.querySelectorAll('.settings-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const id = tab.dataset.tab;
+    document.getElementById('panel-url').style.display    = id === 'url'    ? 'block' : 'none';
+    document.getElementById('panel-upload').style.display = id === 'upload' ? 'block' : 'none';
+  });
+});
+
+// Save game selection
+document.querySelectorAll('.game-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    CF.storage.set('lastSelectedGame', opt.dataset.game);
+  });
+});
+
+// ── Auth guard ─────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  const user = await CF.auth.requireAuth();
+  if (!user) return;
+  // Populate sidebar user info
+  const nameEl = document.querySelector('.user-name');
+  const planEl = document.querySelector('.user-plan');
+  const avEl   = document.querySelector('.user-avatar');
+  const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+  if (nameEl) nameEl.textContent = user.name;
+  if (planEl) planEl.textContent = `⚡ ${user.plan.charAt(0).toUpperCase() + user.plan.slice(1)} Plan`;
+  if (avEl)   avEl.textContent   = initials;
+});
+
+// ── Real API startAnalysis ───────────────────────────────────
+async function startAnalysis() {
+  const urlInput = document.getElementById('streamUrl');
+  const hasUrl   = urlInput && urlInput.value.trim();
+  const zone     = document.querySelector('.upload-zone-title');
+  const hasFile  = zone && !zone.textContent.includes('Drop your');
+
+  if (!hasUrl && !hasFile) {
+    CF.toast('Please paste a stream URL or upload a video file first!', 'error');
+    return;
+  }
+
+  const btn    = document.getElementById('startAnalysisBtn');
+  const bar    = document.getElementById('analysisProgressBar');
+  const pctEl  = document.getElementById('progressPct');
+  const status = document.getElementById('analysisStatus');
+  const steps  = ['step-download','step-audio','step-yolo','step-render','step-music'];
+
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Starting...';
+  btn.style.opacity = '0.7';
+  steps.forEach(id => { const el = document.getElementById(id); if(el) el.classList.remove('step-done','step-active'); });
+
+  // ── Try real API first ───────────────────────────────────
+  if (hasUrl) {
+    const url  = urlInput.value.trim();
+    const game = document.querySelector('.game-option.selected')?.dataset.game || 'BGMI';
+    const maxClips    = parseInt(document.querySelector('[data-setting-input="defaultClipCount"]')?.value) || 5;
+    const clipDur     = parseInt(document.querySelector('[data-setting-input="defaultDuration"]')?.value) || 30;
+
+    let videoId;
+    try {
+      const resp = await CF.videos.submitUrl(url, { game, max_clips: maxClips, clip_duration: clipDur });
+      videoId = resp.video_id;
+      CF.toast('✅ Video submitted! Processing started...', 'success');
+    } catch (err) {
+      CF.toast(`⚠️ API unavailable: ${err.message}. Using simulation mode.`, 'info', 6000);
+      _simulateFallback(btn, bar, pctEl, status, steps);
+      return;
+    }
+
+    // Poll status
+    const STATUS_LABELS = {
+      queued:      { pct: 5,  label: '⏳ Queued for processing...' },
+      downloading: { pct: 15, label: '⬇️ Downloading video...' },
+      analyzing:   { pct: 55, label: '🧠 AI analyzing video...' },
+      done:        { pct: 100,label: '✅ All clips ready!' },
+      failed:      { pct: 0,  label: '❌ Processing failed' },
+    };
+
+    const cancelPoll = CF.videos.startPolling(videoId, {
+      intervalMs: 3000,
+      onProgress(data) {
+        const meta = STATUS_LABELS[data.status] || { pct: 50, label: 'Processing...' };
+        if (bar)    bar.style.width    = `${meta.pct}%`;
+        if (pctEl)  pctEl.textContent  = `${meta.pct}%`;
+        if (status) status.textContent = meta.label;
+
+        // Activate step dots based on status
+        const statusOrder = ['queued','downloading','analyzing','done'];
+        const idx = statusOrder.indexOf(data.status);
+        steps.forEach((id, i) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          if (i < idx)     { el.classList.add('step-done'); el.classList.remove('step-active'); }
+          else if (i===idx){ el.classList.add('step-active'); el.classList.remove('step-done'); }
+        });
+      },
+      onComplete(clips) {
+        if (status) status.textContent = '✅ All clips ready!';
+        document.getElementById('clipsReadySection').style.display = 'block';
+        CF.toast(`🎬 ${clips.length} clip${clips.length !== 1 ? 's' : ''} generated successfully!`, 'success');
+        btn.disabled = false;
+        btn.innerHTML = '✅ Done — View My Clips';
+        btn.style.opacity = '1';
+        btn.onclick = () => window.location.href = 'my-clips.html';
+      },
+      onError(errMsg) {
+        if (status) status.textContent = `❌ Error: ${errMsg}`;
+        CF.toast(`❌ Processing failed: ${errMsg}`, 'error', 8000);
+        btn.disabled = false;
+        btn.innerHTML = '🔄 Retry';
+        btn.style.opacity = '1';
+      },
+    });
+
+    return;  // polling handles the rest
+  }
+
+  // ── Fallback simulation for file uploads ─────────────────────
+  _simulateFallback(btn, bar, pctEl, status, steps);
+}
+
+function _simulateFallback(btn, bar, pctEl, status, steps) {
+  const stepPcts = [18, 45, 74, 90, 100];
+  CF.simulateJob(null,
+    ({ label, pct }) => {
+      if (bar)    bar.style.width    = `${pct}%`;
+      if (pctEl)  pctEl.textContent  = `${pct}%`;
+      if (status) status.textContent = label;
+      stepPcts.forEach((threshold, i) => {
+        const el = document.getElementById(steps[i]);
+        if (!el) return;
+        if (pct >= threshold) {
+          el.classList.remove('step-active');
+          el.classList.add('step-done');
+        } else if (pct >= (stepPcts[i-1] || 0)) {
+          el.classList.add('step-active');
+          el.classList.remove('step-done');
+        }
+      });
+    },
+    (newClips) => {
+      if (status) status.textContent = '✅ Done!';
+      document.getElementById('clipsReadySection').style.display = 'block';
+      CF.toast(`🎬 ${newClips.length} clips are ready!`, 'success');
+      btn.disabled = false;
+      btn.innerHTML = '✅ Analysis Complete — View Clips';
+      btn.style.opacity = '1';
+      btn.onclick = () => window.location.href = 'my-clips.html';
+    }
+  );
+}
+</script>
+</body>
+</html>

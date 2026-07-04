@@ -1,0 +1,56 @@
+{
+  "name": "ClipForge AI",
+  "short_name": "ClipForge",
+  "description": "AI-powered gaming highlight clip generator. Turn Twitch & YouTube streams into viral 9:16 Shorts automatically.",
+  "start_url": "/dashboard.html",
+  "display": "standalone",
+  "background_color": "#080b14",
+  "theme_color": "#7c3aed",
+  "orientation": "any",
+  "lang": "en",
+  "categories": ["games", "utilities", "productivity"],
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "label": "ClipForge AI Dashboard"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "New Clip",
+      "short_name": "Clip",
+      "description": "Generate a new AI highlight clip",
+      "url": "/new-clip.html",
+      "icons": [{ "src": "favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "My Clips",
+      "short_name": "Clips",
+      "description": "View your clip library",
+      "url": "/my-clips.html",
+      "icons": [{ "src": "favicon.svg", "sizes": "any" }]
+    }
+  ]
+}

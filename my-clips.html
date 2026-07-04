@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Clips — ClipForge AI</title>
+  <meta name="description" content="Browse and manage all your AI-generated gaming highlight clips." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta property="og:title" content="My Clips — ClipForge AI" />
+  <meta property="og:description" content="Browse and manage your AI-generated gaming highlight clips." />
+  <meta property="og:image" content="https://clipforge.ai/assets/og-image.png" />
+  <meta property="og:site_name" content="ClipForge AI" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/dashboard.css" />
+</head>
+<body>
+<div class="dash-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><a href="index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="logo-text">ClipForge<span class="logo-ai">AI</span></span></a></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-title">Main</div>
+      <a href="dashboard.html" class="sidebar-link"><span class="s-icon">🏠</span> Dashboard</a>
+      <a href="new-clip.html" class="sidebar-link"><span class="s-icon">➕</span> New Clip<span class="sidebar-badge">New</span></a>
+      <a href="my-clips.html" class="sidebar-link active"><span class="s-icon">🎬</span> My Clips</a>
+      <a href="my-videos.html" class="sidebar-link"><span class="s-icon">📹</span> My Videos</a>
+      <div class="sidebar-section-title">Publish</div>
+      <a href="export.html" class="sidebar-link"><span class="s-icon">📤</span> Export Hub</a>
+      <div class="sidebar-section-title">Account</div>
+      <a href="settings.html" class="sidebar-link"><span class="s-icon">⚙️</span> Settings</a>
+      <a href="pricing.html" class="sidebar-link"><span class="s-icon">👑</span> Upgrade Plan</a>
+      <a href="index.html" class="sidebar-link"><span class="s-icon">🌐</span> Back to Site</a>
+    </nav>
+    <div class="sidebar-footer"><div class="sidebar-user"><div class="user-avatar">RK</div><div><div class="user-name">Raj Khiladi</div><div class="user-plan">⚡ Pro Plan</div></div></div></div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="topbar-icon-btn" id="sidebarToggle">☰</button>
+        <span class="dash-page-title">My Clips</span>
+      </div>
+      <div class="dash-topbar-right">
+        <a href="export.html" class="btn btn-outline" style="font-size:0.82rem;padding:8px 16px;">📤 Export Selected</a>
+        <a href="new-clip.html" class="btn btn-primary" style="font-size:0.85rem;padding:8px 18px;">+ New Clip</a>
+      </div>
+    </div>
+
+    <div class="dash-content page-enter">
+
+      <!-- Filters Row -->
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px;" class="reveal">
+        <div class="url-input-wrap" style="max-width:320px;width:100%;">
+          <div class="url-input-icon">🔍</div>
+          <input type="search" class="url-input-field" placeholder="Search clips..." id="clipSearch" oninput="filterBySearch(this.value)" />
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-primary"   style="font-size:0.78rem;padding:7px 14px;" onclick="setFilter('all',this)">All</button>
+          <button class="btn btn-outline" style="font-size:0.78rem;padding:7px 14px;" onclick="setFilter('kill',this)">🔥 Kills</button>
+          <button class="btn btn-outline" style="font-size:0.78rem;padding:7px 14px;" onclick="setFilter('funny',this)">😂 Funny</button>
+          <button class="btn btn-outline" style="font-size:0.78rem;padding:7px 14px;" onclick="setFilter('victory',this)">🏆 Victory</button>
+          <button class="btn btn-outline" style="font-size:0.78rem;padding:7px 14px;" onclick="setFilter('ready',this)">✅ Ready</button>
+        </div>
+        <select class="form-input form-select" style="width:auto;padding:8px 14px;font-size:0.82rem;" onchange="sortClips(this.value)">
+          <option value="newest">Sort: Newest first</option>
+          <option value="score">Sort: Highest score</option>
+          <option value="views">Sort: Most views</option>
+        </select>
+      </div>
+
+      <!-- Clips Grid -->
+      <div class="clips-grid reveal" id="clipsGrid"></div>
+
+      <div style="text-align:center;margin-top:32px;" class="reveal">
+        <a href="new-clip.html" class="btn btn-primary btn-lg">⚡ Generate More Clips</a>
+      </div>
+      <div class="clips-grid reveal" id="clipsGrid">
+
+        <!-- Clip 1 -->
+        <div class="clip-card" data-type="kill" onclick="openClipModal('clip1')">
+          <div class="clip-thumb-area">
+            <div class="clip-thumb-emoji">🔥</div>
+            <div class="clip-score">Score 9.4</div>
+            <div class="clip-duration">0:28</div>
+            <div class="clip-play-overlay"><div class="clip-play-btn">▶</div></div>
+          </div>
+          <div class="clip-info">
+            <div class="clip-title">Insane 1v4 Quad Kill Clutch</div>
+            <div class="clip-meta">BGMI • Jul 4, 2026 • 9:16</div>
+            <div style="margin-bottom:8px;"><span class="status-badge status-done">Ready</span></div>
+            <div class="clip-actions">
+              <button class="clip-action-btn" onclick="event.stopPropagation();downloadClip('clip1')">⬇ Download</button>
+              <a href="export.html" class="clip-action-btn primary-action" onclick="event.stopPropagation()">📤 Publish</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clip 2 -->
+        <div class="clip-card" data-type="funny" onclick="openClipModal('clip2')">
+          <div class="clip-thumb-area" style="background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(236,72,153,0.1))">
+            <div class="clip-thumb-emoji">😂</div>
+            <div class="clip-score">Score 7.8</div>
+            <div class="clip-duration">0:15</div>
+            <div class="clip-play-overlay"><div class="clip-play-btn">▶</div></div>
+          </div>
+          <div class="clip-info">
+            <div class="clip-title">Epic Fail + Vine Boom Moment</div>
+            <div class="clip-meta">BGMI • Jul 4, 2026 • 9:16</div>
+            <div style="margin-bottom:8px;"><span class="status-badge status-done">Ready</span></div>
+            <div class="clip-actions">
+              <button class="clip-action-btn" onclick="event.stopPropagation();downloadClip('clip2')">⬇ Download</button>
+              <a href="export.html" class="clip-action-btn primary-action" onclick="event.stopPropagation()">📤 Publish</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clip 3 — Rendering -->
+        <div class="clip-card" data-type="victory">
+          <div class="clip-thumb-area" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(6,182,212,0.1))">
+            <div class="clip-thumb-emoji">🏆</div>
+            <div class="clip-score">Score 9.9</div>
+            <div class="clip-duration">0:33</div>
+            <div class="clip-play-overlay"><div class="clip-play-btn">▶</div></div>
+          </div>
+          <div class="clip-info">
+            <div class="clip-title">Chicken Dinner Victory Screen</div>
+            <div class="clip-meta">BGMI • Jul 4, 2026 • 9:16</div>
+            <div style="margin-bottom:8px;"><span class="status-badge status-render">Rendering</span></div>
+            <div class="clip-actions">
+              <button class="clip-action-btn" disabled style="opacity:0.4;cursor:not-allowed;">⬇ Download</button>
+              <button class="clip-action-btn" disabled style="opacity:0.4;cursor:not-allowed;">📤 Publish</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clip 4 -->
+        <div class="clip-card" data-type="kill" onclick="openClipModal('clip4')">
+          <div class="clip-thumb-area" style="background:linear-gradient(135deg,rgba(124,58,237,0.25),rgba(245,158,11,0.1))">
+            <div class="clip-thumb-emoji">💥</div>
+            <div class="clip-score">Score 8.6</div>
+            <div class="clip-duration">0:22</div>
+            <div class="clip-play-overlay"><div class="clip-play-btn">▶</div></div>
+          </div>
+          <div class="clip-info">
+            <div class="clip-title">Triple Headshot Frenzy</div>
+            <div class="clip-meta">VALORANT • Jul 3, 2026 • 9:16</div>
+            <div style="margin-bottom:8px;"><span class="status-badge status-done">Ready</span></div>
+            <div class="clip-actions">
+              <button class="clip-action-btn" onclick="event.stopPropagation();downloadClip('clip4')">⬇ Download</button>
+              <a href="export.html" class="clip-action-btn primary-action" onclick="event.stopPropagation()">📤 Publish</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clip 5 -->
+        <div class="clip-card" data-type="kill" onclick="openClipModal('clip5')">
+          <div class="clip-thumb-area" style="background:linear-gradient(135deg,rgba(6,182,212,0.2),rgba(124,58,237,0.1))">
+            <div class="clip-thumb-emoji">⚡</div>
+            <div class="clip-score">Score 8.1</div>
+            <div class="clip-duration">0:18</div>
+            <div class="clip-play-overlay"><div class="clip-play-btn">▶</div></div>
+          </div>
+          <div class="clip-info">
+            <div class="clip-title">Speed Rush Full Squad Wipe</div>
+            <div class="clip-meta">Warzone • Jul 3, 2026 • 9:16</div>
+            <div style="margin-bottom:8px;"><span class="status-badge status-done">Ready</span></div>
+            <div class="clip-actions">
+              <button class="clip-action-btn" onclick="event.stopPropagation();downloadClip('clip5')">⬇ Download</button>
+              <a href="export.html" class="clip-action-btn primary-action" onclick="event.stopPropagation()">📤 Publish</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clip 6 -->
+        <div class="clip-card" data-type="kill" onclick="openClipModal('clip6')">
+          <div class="clip-thumb-area" style="background:linear-gradient(135deg,rgba(236,72,153,0.2),rgba(124,58,237,0.1))">
+            <div class="clip-thumb-emoji">🎯</div>
+            <div class="clip-score">Score 7.5</div>
+            <div class="clip-duration">0:12</div>
+            <div class="clip-play-overlay"><div class="clip-play-btn">▶</div></div>
+          </div>
+          <div class="clip-info">
+            <div class="clip-title">No-Scope Long Range Kill</div>
+            <div class="clip-meta">BGMI • Jul 2, 2026 • 9:16</div>
+            <div style="margin-bottom:8px;"><span class="status-badge status-done">Ready</span></div>
+            <div class="clip-actions">
+              <button class="clip-action-btn" onclick="event.stopPropagation();downloadClip('clip6')">⬇ Download</button>
+              <a href="export.html" class="clip-action-btn primary-action" onclick="event.stopPropagation()">📤 Publish</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clip 7 — Failed -->
+        <div class="clip-card" data-type="kill">
+          <div class="clip-thumb-area" style="background:rgba(239,68,68,0.08)">
+            <div class="clip-thumb-emoji">❌</div>
+            <div class="clip-duration">--:--</div>
+          </div>
+          <div class="clip-info">
+            <div class="clip-title">Audio sync failed</div>
+            <div class="clip-meta">BGMI • Jul 2, 2026</div>
+            <div style="margin-bottom:8px;"><span class="status-badge status-fail">Failed</span></div>
+            <div class="clip-actions">
+              <button class="clip-action-btn" onclick="retryClip(this)">🔄 Retry</button>
+              <button class="clip-action-btn">🗑 Delete</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clip 8 -->
+        <div class="clip-card" data-type="funny" onclick="openClipModal('clip8')">
+          <div class="clip-thumb-area" style="background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(16,185,129,0.1))">
+            <div class="clip-thumb-emoji">🤣</div>
+            <div class="clip-score">Score 8.9</div>
+            <div class="clip-duration">0:25</div>
+            <div class="clip-play-overlay"><div class="clip-play-btn">▶</div></div>
+          </div>
+          <div class="clip-info">
+            <div class="clip-title">Chat Goes Crazy LOL Moment</div>
+            <div class="clip-meta">VALORANT • Jul 1, 2026 • 9:16</div>
+            <div style="margin-bottom:8px;"><span class="status-badge status-done">Ready</span></div>
+            <div class="clip-actions">
+              <button class="clip-action-btn" onclick="event.stopPropagation();downloadClip('clip8')">⬇ Download</button>
+              <a href="export.html" class="clip-action-btn primary-action" onclick="event.stopPropagation()">📤 Publish</a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end grid -->
+
+      <!-- Load More -->
+      <div style="text-align:center;margin-top:32px;" class="reveal">
+        <button class="btn btn-outline btn-lg" onclick="loadMore(this)">Load More Clips (39 remaining)</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Clip Preview Modal -->
+<div class="modal-overlay" id="clipModal">
+  <div class="modal" style="max-width:600px;">
+    <div class="modal-header">
+      <span class="modal-title" id="modalClipTitle">Clip Preview</span>
+      <button class="modal-close" onclick="CF.closeModal('clipModal')">✕</button>
+    </div>
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;">
+      <div class="video-preview" style="width:160px;">
+        <div class="video-preview-placeholder">
+          <div class="video-play-big">▶</div>
+          <span style="font-size:0.75rem;">Preview</span>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.8;" id="modalClipMeta"></div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+            <button class="btn btn-primary" style="border-radius:10px;" id="modalDownloadBtn">⬇ Download 1080p MP4</button>
+            <a href="export.html" class="btn btn-outline" style="border-radius:10px;text-align:center;">📤 Publish to Platforms</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="scripts/main.js"></script>
+<script src="scripts/app.js"></script>
+<script>
+let currentFilter = 'all';
+
+document.addEventListener('DOMContentLoaded', () => {
+  CF.ui.renderClipsGrid('clipsGrid', 'all');
+});
+
+function setFilter(type, btn) {
+  currentFilter = type;
+  document.querySelectorAll('.dash-content .btn').forEach(b => {
+    if (['all','kill','funny','victory','ready'].some(t => b.onclick?.toString().includes(t))) {
+      b.className = 'btn btn-outline';
+      b.style.fontSize = '0.78rem'; b.style.padding = '7px 14px';
+    }
+  });
+  btn.className = 'btn btn-primary';
+  btn.style.fontSize = '0.78rem'; btn.style.padding = '7px 14px';
+  CF.ui.renderClipsGrid('clipsGrid', type);
+}
+
+function filterBySearch(query) {
+  const clips = CF.clips.getAll().filter(c =>
+    c.title.toLowerCase().includes(query.toLowerCase()) ||
+    c.game.toLowerCase().includes(query.toLowerCase())
+  );
+  const el = document.getElementById('clipsGrid');
+  if (!el) return;
+  if (!clips.length) { el.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);">No clips match your search</div>'; return; }
+  // Re-render subset
+  const tempFilter = c => clips.find(x => x.id === c.id);
+  CF.ui.renderClipsGrid('clipsGrid', 'all');
+}
+
+function sortClips(by) {
+  CF.ui.renderClipsGrid('clipsGrid', currentFilter);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Page Not Found | ClipForge AI</title>
+  <meta name="description" content="The page you're looking for doesn't exist. Head back to ClipForge AI." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .error-bg {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 20%, rgba(124,58,237,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(6,182,212,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .error-code {
+      font-family: var(--font-display);
+      font-size: clamp(6rem, 18vw, 12rem);
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, #7c3aed, #06b6d4, #7c3aed);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 4s linear infinite;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+    @keyframes gradientShift {
+      0%   { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+    .error-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+    .error-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .error-sub {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 440px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+    .error-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+    .error-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .error-link {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .error-link:hover { color: var(--accent-purple-light); }
+    .error-glitch {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.03;
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: var(--accent-cyan);
+      line-height: 1.4;
+      white-space: pre;
+      top: 60px;
+      right: 40px;
+      animation: flicker 5s infinite;
+    }
+    @keyframes flicker {
+      0%,96%,100% { opacity: 0.03; }
+      97%          { opacity: 0.08; }
+      98%          { opacity: 0.02; }
+      99%          { opacity: 0.07; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="error-bg"></div>
+<div class="particles" id="particles"></div>
+
+<!-- Decorative code glitch -->
+<pre class="error-glitch">ERROR_CODE: 404
+FILE_NOT_FOUND: true
+AI_SCANNING: false
+HIGHLIGHT_DETECTED: null
+CLIP_STATUS: lost
+RETRY_COUNT: 0
+RECOMMENDED: go_home()</pre>
+
+<div class="error-page">
+
+  <!-- Logo -->
+  <a href="index.html" class="nav-logo" style="position:absolute;top:28px;left:28px;text-decoration:none;">
+    <div class="logo-icon">⚡</div>
+    <span class="logo-text">ClipForge<span class="logo-ai">AI</span></span>
+  </a>
+
+  <div class="error-icon">🎬</div>
+  <div class="error-code">404</div>
+
+  <h1 class="error-title">This clip doesn't exist</h1>
+  <p class="error-sub">
+    Our AI scanned every frame and couldn't find this page.
+    It might have been moved, deleted, or it never existed — kind of like a failed render.
+  </p>
+
+  <div class="error-actions">
+    <a href="index.html" class="btn btn-primary btn-lg">
+      <span>🏠</span> Back to Home
+    </a>
+    <a href="dashboard.html" class="btn btn-outline btn-lg">
+      <span>⚡</span> Go to Dashboard
+    </a>
+  </div>
+
+  <div class="error-links">
+    <a href="new-clip.html" class="error-link">➕ New Clip</a>
+    <a href="my-clips.html" class="error-link">🎬 My Clips</a>
+    <a href="pricing.html" class="error-link">👑 Pricing</a>
+    <a href="mailto:support@clipforge.ai" class="error-link">📧 Support</a>
+  </div>
+
+</div>
+
+<script src="scripts/main.js"></script>
+</body>
+</html>

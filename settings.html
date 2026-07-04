@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — ClipForge AI</title>
+  <meta name="description" content="Manage your ClipForge AI account settings, connected platforms, and subscription." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta property="og:title" content="Settings — ClipForge AI" />
+  <meta property="og:description" content="Manage your ClipForge AI account, connected platforms, and notification preferences." />
+  <meta property="og:image" content="https://clipforge.ai/assets/og-image.png" />
+  <meta property="og:site_name" content="ClipForge AI" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/dashboard.css" />
+</head>
+<body>
+<div class="dash-layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><a href="index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="logo-text">ClipForge<span class="logo-ai">AI</span></span></a></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-title">Main</div>
+      <a href="dashboard.html" class="sidebar-link"><span class="s-icon">🏠</span> Dashboard</a>
+      <a href="new-clip.html" class="sidebar-link"><span class="s-icon">➕</span> New Clip<span class="sidebar-badge">New</span></a>
+      <a href="my-clips.html" class="sidebar-link"><span class="s-icon">🎬</span> My Clips</a>
+      <a href="my-videos.html" class="sidebar-link"><span class="s-icon">📹</span> My Videos</a>
+      <div class="sidebar-section-title">Publish</div>
+      <a href="export.html" class="sidebar-link"><span class="s-icon">📤</span> Export Hub</a>
+      <div class="sidebar-section-title">Account</div>
+      <a href="settings.html" class="sidebar-link active"><span class="s-icon">⚙️</span> Settings</a>
+      <a href="pricing.html" class="sidebar-link"><span class="s-icon">👑</span> Upgrade Plan</a>
+      <a href="index.html" class="sidebar-link"><span class="s-icon">🌐</span> Back to Site</a>
+    </nav>
+    <div class="sidebar-footer"><div class="sidebar-user"><div class="user-avatar">RK</div><div><div class="user-name">Raj Khiladi</div><div class="user-plan">⚡ Pro Plan</div></div></div></div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="topbar-icon-btn" id="sidebarToggle">☰</button>
+        <span class="dash-page-title">Settings</span>
+      </div>
+      <div class="dash-topbar-right">
+        <button class="btn btn-primary" style="font-size:0.85rem;padding:8px 18px;" onclick="saveSettings()">💾 Save Changes</button>
+      </div>
+    </div>
+
+    <div class="dash-content page-enter" style="max-width:860px;">
+
+      <!-- Settings Tabs -->
+      <div class="settings-nav reveal">
+        <button class="settings-tab active" data-tab="profile">👤 Profile</button>
+        <button class="settings-tab" data-tab="connections">🔗 Connections</button>
+        <button class="settings-tab" data-tab="ai">🤖 AI Defaults</button>
+        <button class="settings-tab" data-tab="billing">💳 Billing</button>
+        <button class="settings-tab" data-tab="notifications">🔔 Notifications</button>
+      </div>
+
+      <!-- Profile Panel -->
+      <div class="settings-panel card reveal" id="panel-profile">
+        <div class="card-header"><span class="card-title">👤 Profile Information</span></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:0;">
+          <!-- Avatar -->
+          <div style="display:flex;align-items:center;gap:20px;padding-bottom:24px;margin-bottom:24px;border-bottom:1px solid var(--border);">
+            <div style="width:72px;height:72px;border-radius:50%;background:var(--gradient-main);display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;color:#fff;flex-shrink:0;">RK</div>
+            <div>
+              <button class="btn btn-outline" style="font-size:0.82rem;padding:7px 16px;margin-bottom:6px;" onclick="window.ClipForge?.toast('Upload dialog opening...','info')">Change Avatar</button>
+              <p style="font-size:0.78rem;color:var(--text-muted);">JPG, PNG or GIF. Max 2MB</p>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Display Name</label>
+              <input type="text" class="form-input" value="Raj Khiladi" />
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Username</label>
+              <input type="text" class="form-input" value="@RajKhiladi" />
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" value="raj@example.com" />
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Main Game</label>
+              <select class="form-input form-select">
+                <option selected>BGMI</option>
+                <option>VALORANT</option>
+                <option>Warzone</option>
+                <option>Free Fire</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Bio</label>
+            <textarea class="form-input" rows="3" style="resize:vertical;">Pro BGMI streamer. Clutch is my middle name. 🎮🔥</textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Connections Panel -->
+      <div class="settings-panel card reveal" id="panel-connections" style="display:none;">
+        <div class="card-header"><span class="card-title">🔗 Connected Platforms</span></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:16px;">
+
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);border-radius:var(--radius-md);">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:1.5rem;">▶</div>
+              <div>
+                <div style="font-weight:600;">YouTube</div>
+                <div style="font-size:0.82rem;color:var(--accent-green);">✅ @RajKhiladi · 48K subscribers</div>
+              </div>
+            </div>
+            <button class="btn btn-outline" style="font-size:0.8rem;padding:7px 14px;border-color:rgba(239,68,68,0.4);color:var(--accent-red);" onclick="window.ClipForge?.toast('YouTube disconnected','error')">Disconnect</button>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;background:rgba(145,71,255,0.06);border:1px solid rgba(145,71,255,0.25);border-radius:var(--radius-md);">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:1.5rem;">💜</div>
+              <div>
+                <div style="font-weight:600;">Twitch</div>
+                <div style="font-size:0.82rem;color:var(--accent-green);">✅ rajkhiladi · 3.2K followers</div>
+              </div>
+            </div>
+            <button class="btn btn-outline" style="font-size:0.8rem;padding:7px 14px;border-color:rgba(239,68,68,0.4);color:var(--accent-red);" onclick="window.ClipForge?.toast('Twitch disconnected','error')">Disconnect</button>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:1.5rem;opacity:0.5;">♪</div>
+              <div>
+                <div style="font-weight:600;">TikTok</div>
+                <div style="font-size:0.82rem;color:var(--text-muted);">Not connected</div>
+              </div>
+            </div>
+            <button class="btn btn-primary" style="font-size:0.8rem;padding:7px 14px;" onclick="window.ClipForge?.toast('Redirecting to TikTok OAuth...','info')">Connect</button>
+          </div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="font-size:1.5rem;opacity:0.5;">◉</div>
+              <div>
+                <div style="font-weight:600;">Instagram</div>
+                <div style="font-size:0.82rem;color:var(--text-muted);">Not connected</div>
+              </div>
+            </div>
+            <button class="btn btn-primary" style="font-size:0.8rem;padding:7px 14px;" onclick="window.ClipForge?.toast('Redirecting to Instagram OAuth...','info')">Connect</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Defaults Panel -->
+      <div class="settings-panel card reveal" id="panel-ai" style="display:none;">
+        <div class="card-header"><span class="card-title">🤖 AI Detection Defaults</span></div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Default game</label>
+              <select class="form-input form-select"><option selected>BGMI</option><option>VALORANT</option><option>Warzone</option><option>Free Fire</option></select>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Default clip count</label>
+              <select class="form-input form-select"><option>3</option><option selected>5</option><option>8</option><option>10</option></select>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Default clip duration</label>
+              <select class="form-input form-select"><option>15s</option><option selected>30s</option><option>60s</option><option>90s</option></select>
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label">Default output quality</label>
+              <select class="form-input form-select"><option>720p</option><option selected>1080p 60fps</option></select>
+            </div>
+          </div>
+          <h4 style="font-size:0.85rem;font-weight:600;color:var(--text-secondary);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.06em;">Detection toggles</h4>
+          <div class="toggle-wrap"><div><div class="toggle-label">Audio Peak Detection</div><div class="toggle-sub">librosa RMS spike detection</div></div><button class="toggle on"></button></div>
+          <div class="toggle-wrap"><div><div class="toggle-label">YOLO Killfeed Scanning</div><div class="toggle-sub">Game UI object detection</div></div><button class="toggle on"></button></div>
+          <div class="toggle-wrap"><div><div class="toggle-label">Chat Sentiment AI</div><div class="toggle-sub">Emoji cluster & keyword detection</div></div><button class="toggle on"></button></div>
+          <div class="toggle-wrap"><div><div class="toggle-label">Auto Music Sync</div><div class="toggle-sub">Beat drop alignment</div></div><button class="toggle on"></button></div>
+          <div class="toggle-wrap" style="border-bottom:none;"><div><div class="toggle-label">Meme SFX Auto-insert</div><div class="toggle-sub">Vine boom, bruh sounds</div></div><button class="toggle"></button></div>
+        </div>
+      </div>
+
+      <!-- Billing Panel -->
+      <div class="settings-panel card reveal" id="panel-billing" style="display:none;">
+        <div class="card-header"><span class="card-title">💳 Subscription & Billing</span></div>
+        <div class="card-body">
+          <div style="background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(6,182,212,0.08));border:1px solid rgba(124,58,237,0.3);border-radius:var(--radius-md);padding:24px;margin-bottom:24px;">
+            <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:16px;">
+              <div>
+                <div class="plan-badge" style="margin-bottom:10px;">⚡ Pro Plan · $19/month</div>
+                <div style="font-size:0.88rem;color:var(--text-secondary);">Renews on <strong>August 4, 2026</strong></div>
+                <div style="font-size:0.88rem;color:var(--text-secondary);">30 clips/month · 1080p · No watermark</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <a href="pricing.html" class="btn btn-primary" style="font-size:0.82rem;padding:8px 16px;">👑 Upgrade to Creator</a>
+                <button class="btn btn-ghost" style="font-size:0.78rem;color:var(--accent-red);" onclick="window.ClipForge?.toast('Are you sure? Cancellation is immediate.','error')">Cancel Subscription</button>
+              </div>
+            </div>
+          </div>
+
+          <h4 style="font-size:0.85rem;font-weight:600;color:var(--text-secondary);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.06em;">Payment Method</h4>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);margin-bottom:20px;">
+            <div style="display:flex;align-items:center;gap:12px;font-size:0.88rem;">
+              <span style="font-size:1.2rem;">💳</span>
+              Visa ending in 4242 · Expires 12/28
+            </div>
+            <button class="btn btn-outline" style="font-size:0.78rem;padding:6px 12px;" onclick="window.ClipForge?.toast('Stripe billing portal opening...','info')">Update Card</button>
+          </div>
+
+          <h4 style="font-size:0.85rem;font-weight:600;color:var(--text-secondary);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.06em;">Billing History</h4>
+          <table class="data-table">
+            <thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Receipt</th></tr></thead>
+            <tbody>
+              <tr><td>Jul 4, 2026</td><td>Pro Plan · Monthly</td><td>$19.00</td><td><a class="link-accent" href="#" style="font-size:0.82rem;">Download</a></td></tr>
+              <tr><td>Jun 4, 2026</td><td>Pro Plan · Monthly</td><td>$19.00</td><td><a class="link-accent" href="#" style="font-size:0.82rem;">Download</a></td></tr>
+              <tr><td>May 4, 2026</td><td>Pro Plan · Monthly</td><td>$19.00</td><td><a class="link-accent" href="#" style="font-size:0.82rem;">Download</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Notifications Panel -->
+      <div class="settings-panel card reveal" id="panel-notifications" style="display:none;">
+        <div class="card-header"><span class="card-title">🔔 Notification Preferences</span></div>
+        <div class="card-body">
+          <h4 style="font-size:0.82rem;font-weight:600;color:var(--text-secondary);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.06em;">Email</h4>
+          <div class="toggle-wrap"><div><div class="toggle-label">Clip ready notification</div><div class="toggle-sub">When your clips finish rendering</div></div><button class="toggle on"></button></div>
+          <div class="toggle-wrap"><div><div class="toggle-label">Weekly performance report</div><div class="toggle-sub">Views, clips generated, top performers</div></div><button class="toggle on"></button></div>
+          <div class="toggle-wrap"><div><div class="toggle-label">Usage limit warnings</div><div class="toggle-sub">When you're at 80% of monthly clips</div></div><button class="toggle on"></button></div>
+          <div class="toggle-wrap"><div><div class="toggle-label">Product updates</div><div class="toggle-sub">New features and improvements</div></div><button class="toggle"></button></div>
+          <h4 style="font-size:0.82rem;font-weight:600;color:var(--text-secondary);margin:20px 0 12px;text-transform:uppercase;letter-spacing:0.06em;">Browser Push</h4>
+          <div class="toggle-wrap"><div><div class="toggle-label">Render complete alerts</div><div class="toggle-sub">Real-time in-browser notifications</div></div><button class="toggle on"></button></div>
+          <div class="toggle-wrap" style="border-bottom:none;"><div><div class="toggle-label">Publish success alerts</div><div class="toggle-sub">Confirmation when clips go live</div></div><button class="toggle on"></button></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="scripts/main.js"></script>
+<script>
+function saveSettings() {
+  window.ClipForge?.toast('✅ Settings saved successfully!', 'success');
+}
+</script>
+</body>
+</html>

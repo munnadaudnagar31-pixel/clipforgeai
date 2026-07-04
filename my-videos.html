@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Videos — ClipForge AI</title>
+  <meta name="description" content="Manage all your uploaded and ingested stream videos." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta property="og:title" content="My Videos — ClipForge AI" />
+  <meta property="og:description" content="Manage your uploaded and ingested gaming stream videos." />
+  <meta property="og:image" content="https://clipforge.ai/assets/og-image.png" />
+  <meta property="og:site_name" content="ClipForge AI" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/dashboard.css" />
+</head>
+<body>
+<div class="dash-layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><a href="index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="logo-text">ClipForge<span class="logo-ai">AI</span></span></a></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-title">Main</div>
+      <a href="dashboard.html" class="sidebar-link"><span class="s-icon">🏠</span> Dashboard</a>
+      <a href="new-clip.html" class="sidebar-link"><span class="s-icon">➕</span> New Clip<span class="sidebar-badge">New</span></a>
+      <a href="my-clips.html" class="sidebar-link"><span class="s-icon">🎬</span> My Clips</a>
+      <a href="my-videos.html" class="sidebar-link active"><span class="s-icon">📹</span> My Videos</a>
+      <div class="sidebar-section-title">Publish</div>
+      <a href="export.html" class="sidebar-link"><span class="s-icon">📤</span> Export Hub</a>
+      <div class="sidebar-section-title">Account</div>
+      <a href="settings.html" class="sidebar-link"><span class="s-icon">⚙️</span> Settings</a>
+      <a href="pricing.html" class="sidebar-link"><span class="s-icon">👑</span> Upgrade Plan</a>
+      <a href="index.html" class="sidebar-link"><span class="s-icon">🌐</span> Back to Site</a>
+    </nav>
+    <div class="sidebar-footer"><div class="sidebar-user"><div class="user-avatar">RK</div><div><div class="user-name">Raj Khiladi</div><div class="user-plan">⚡ Pro Plan</div></div></div></div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="topbar-icon-btn" id="sidebarToggle">☰</button>
+        <span class="dash-page-title">My Videos</span>
+      </div>
+      <div class="dash-topbar-right">
+        <a href="new-clip.html" class="btn btn-primary" style="font-size:0.85rem;padding:8px 18px;">+ Add Video</a>
+      </div>
+    </div>
+
+    <div class="dash-content page-enter">
+
+      <!-- Storage Widget -->
+      <div class="card reveal" style="margin-bottom:24px;">
+        <div class="card-body" style="padding:20px 24px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="font-size:2rem;">🗄️</div>
+              <div>
+                <div style="font-weight:600;margin-bottom:4px;">Storage: 11.4 GB / 50 GB used</div>
+                <div class="usage-bar-wrap" style="width:200px;margin:0;">
+                  <div class="usage-bar-fill" style="width:23%"></div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;gap:20px;font-size:0.85rem;color:var(--text-muted);">
+              <span>📹 8 Videos</span>
+              <span>🎬 47 Clips</span>
+              <span>☁️ Auto-delete after 30 days</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Videos Table -->
+      <div class="card reveal">
+        <div class="card-header">
+          <span class="card-title">📹 All Videos</span>
+          <div style="display:flex;gap:10px;">
+            <div class="url-input-wrap" style="max-width:220px;">
+              <div class="url-input-icon">🔍</div>
+              <input type="search" class="url-input-field" placeholder="Search..." style="padding:8px 12px;font-size:0.82rem;" />
+            </div>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Video</th>
+                <th>Game</th>
+                <th>Source</th>
+                <th>Duration</th>
+                <th>Size</th>
+                <th>Status</th>
+                <th>Clips</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,rgba(124,58,237,0.3),rgba(6,182,212,0.2));display:flex;align-items:center;justify-content:center;flex-shrink:0;">🎯</div>
+                    <div>
+                      <div style="font-weight:500;font-size:0.88rem;">BGMI Finals Stream</div>
+                      <div style="font-size:0.75rem;color:var(--text-muted);">Jul 4, 2026 · 9:26 AM</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="tag">BGMI</span></td>
+                <td><span style="font-size:0.8rem;color:var(--text-muted);">🔗 Twitch VOD</span></td>
+                <td>3:42:00</td>
+                <td>2.1 GB</td>
+                <td><span class="status-badge status-done">Done</span></td>
+                <td><a href="my-clips.html" style="color:var(--accent-purple-light);font-size:0.85rem;">5 clips →</a></td>
+                <td>
+                  <div style="display:flex;gap:6px;">
+                    <button class="clip-action-btn" style="flex:unset;padding:5px 10px;font-size:0.75rem;" onclick="window.ClipForge?.toast('Re-analyzing...','info')">🔄 Re-analyze</button>
+                    <button class="clip-action-btn" style="flex:unset;padding:5px 10px;font-size:0.75rem;" onclick="window.ClipForge?.toast('Video deleted','error')">🗑</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,rgba(6,182,212,0.3),rgba(124,58,237,0.2));display:flex;align-items:center;justify-content:center;flex-shrink:0;">💥</div>
+                    <div>
+                      <div style="font-weight:500;font-size:0.88rem;">Valorant Ranked Session</div>
+                      <div style="font-size:0.75rem;color:var(--text-muted);">Jul 3, 2026 · 7:14 PM</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="tag" style="background:rgba(255,70,70,0.1);color:#ff6b6b;border-color:rgba(255,70,70,0.2);">VALORANT</span></td>
+                <td><span style="font-size:0.8rem;color:var(--text-muted);">🔗 YouTube VOD</span></td>
+                <td>2:15:30</td>
+                <td>1.4 GB</td>
+                <td><span class="status-badge status-render">Analyzing</span></td>
+                <td><span style="font-size:0.8rem;color:var(--text-muted);">In progress...</span></td>
+                <td>
+                  <div style="display:flex;gap:6px;">
+                    <button class="clip-action-btn" style="flex:unset;padding:5px 10px;font-size:0.75rem;opacity:0.5;" disabled>⏳ Wait</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,rgba(245,158,11,0.3),rgba(16,185,129,0.2));display:flex;align-items:center;justify-content:center;flex-shrink:0;">🪖</div>
+                    <div>
+                      <div style="font-weight:500;font-size:0.88rem;">Warzone Late Night Session</div>
+                      <div style="font-size:0.75rem;color:var(--text-muted);">Jul 3, 2026 · 2:00 AM</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="tag" style="background:rgba(245,158,11,0.1);color:var(--accent-amber);border-color:rgba(245,158,11,0.25);">Warzone</span></td>
+                <td><span style="font-size:0.8rem;color:var(--text-muted);">📁 Upload</span></td>
+                <td>5:10:00</td>
+                <td>4.8 GB</td>
+                <td><span class="status-badge status-done">Done</span></td>
+                <td><a href="my-clips.html" style="color:var(--accent-purple-light);font-size:0.85rem;">8 clips →</a></td>
+                <td>
+                  <div style="display:flex;gap:6px;">
+                    <button class="clip-action-btn" style="flex:unset;padding:5px 10px;font-size:0.75rem;" onclick="window.ClipForge?.toast('Re-analyzing...','info')">🔄 Re-analyze</button>
+                    <button class="clip-action-btn" style="flex:unset;padding:5px 10px;font-size:0.75rem;" onclick="window.ClipForge?.toast('Video deleted','error')">🗑</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,rgba(16,185,129,0.3),rgba(6,182,212,0.1));display:flex;align-items:center;justify-content:center;flex-shrink:0;">🏹</div>
+                    <div>
+                      <div style="font-weight:500;font-size:0.88rem;">Free Fire Sunday Tournament</div>
+                      <div style="font-size:0.75rem;color:var(--text-muted);">Jun 29, 2026 · 4:30 PM</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="tag" style="background:rgba(16,185,129,0.1);color:var(--accent-green);border-color:rgba(16,185,129,0.25);">Free Fire</span></td>
+                <td><span style="font-size:0.8rem;color:var(--text-muted);">🔗 YouTube VOD</span></td>
+                <td>4:00:00</td>
+                <td>3.1 GB</td>
+                <td><span class="status-badge status-queue">Queued</span></td>
+                <td><span style="font-size:0.8rem;color:var(--text-muted);">—</span></td>
+                <td>
+                  <div style="display:flex;gap:6px;">
+                    <button class="clip-action-btn" style="flex:unset;padding:5px 10px;font-size:0.75rem;" onclick="window.ClipForge?.toast('Job priority bumped!','success')">⬆ Priority</button>
+                    <button class="clip-action-btn" style="flex:unset;padding:5px 10px;font-size:0.75rem;">🗑</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="scripts/main.js"></script>
+</body>
+</html>

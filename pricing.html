@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — ClipForge AI | Gaming Clip Generator Plans</title>
+  <meta name="description" content="Choose your ClipForge AI plan. Free, Pro ($19/mo), Creator ($49/mo), and Agency ($149/mo). Start generating viral gaming clips today." />
+  <!-- Favicon + PWA -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ClipForge AI" />
+  <meta property="og:title" content="Pricing — ClipForge AI | Free, Pro, Creator & Agency Plans" />
+  <meta property="og:description" content="Start free, no credit card required. Pro $19/mo, Creator $49/mo. AI-powered gaming clip generator with YouTube Shorts & TikTok publishing." />
+  <meta property="og:image" content="https://clipforge.ai/assets/og-image.png" />
+  <meta property="og:url" content="https://clipforge.ai/pricing.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@clipforgeai" />
+  <link rel="canonical" href="https://clipforge.ai/pricing.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav scrolled" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">⚡</div>
+      <span class="logo-text">ClipForge<span class="logo-ai">AI</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#features" class="nav-link">Features</a></li>
+      <li><a href="index.html#how-it-works" class="nav-link">How It Works</a></li>
+      <li><a href="pricing.html" class="nav-link" style="color:var(--text-primary);">Pricing</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="auth.html" class="btn btn-ghost">Sign In</a>
+      <a href="auth.html" class="btn btn-primary">Start Free →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="pricing-page">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-badge">Transparent Pricing</span>
+      <h1 class="section-title">Grow Without Limits<br /><span class="gradient-text">Pay As You Scale</span></h1>
+      <p class="section-sub">Start free. No credit card required. Cancel anytime. All plans include unlimited previews.</p>
+
+      <!-- Billing Toggle -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:24px;">
+        <span style="font-size:0.9rem;color:var(--text-secondary);">Monthly</span>
+        <button class="toggle" id="billingToggle" style="transform:scale(1.2);"></button>
+        <span style="font-size:0.9rem;color:var(--text-secondary);" id="billingLabel">Annual (save 20%)</span>
+      </div>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div class="pricing-full-grid reveal">
+
+      <!-- Free -->
+      <div class="pricing-full-card">
+        <div style="margin-bottom:24px;">
+          <div style="font-size:1.5rem;margin-bottom:8px;">🎮</div>
+          <div class="pricing-tier">Free</div>
+          <div class="pricing-price">
+            <span class="price-amount" data-monthly="$0" data-annual="$0">$0</span>
+            <span class="price-period">/mo</span>
+          </div>
+          <p class="pricing-desc">Try before you buy. Perfect for casual streamers.</p>
+        </div>
+        <ul class="pricing-features" style="flex:1;">
+          <li class="feat yes">3 clips per month</li>
+          <li class="feat yes">720p export</li>
+          <li class="feat yes">BGMI + Valorant</li>
+          <li class="feat yes">Audio peak detection</li>
+          <li class="feat yes">Browser preview</li>
+          <li class="feat no">No watermark</li>
+          <li class="feat no">Music sync</li>
+          <li class="feat no">Direct publish</li>
+          <li class="feat no">Chat AI analysis</li>
+        </ul>
+        <a href="auth.html" class="btn btn-outline btn-full" style="margin-top:24px;border-radius:10px;padding:14px;">Get Started Free</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="pricing-full-card featured">
+        <div class="pricing-popular">⭐ Most Popular</div>
+        <div style="margin-bottom:24px;">
+          <div style="font-size:1.5rem;margin-bottom:8px;">⚡</div>
+          <div class="pricing-tier" style="color:var(--accent-purple-light);">Pro</div>
+          <div class="pricing-price">
+            <span class="price-amount" data-monthly="$19" data-annual="$15">$19</span>
+            <span class="price-period">/mo</span>
+          </div>
+          <p class="pricing-desc">For serious streamers who want to go viral.</p>
+        </div>
+        <ul class="pricing-features" style="flex:1;">
+          <li class="feat yes">30 clips per month</li>
+          <li class="feat yes">1080p 60fps export</li>
+          <li class="feat yes">All 4 games</li>
+          <li class="feat yes">No watermark</li>
+          <li class="feat yes">Auto music sync</li>
+          <li class="feat yes">Meme SFX library</li>
+          <li class="feat yes">Chat sentiment AI</li>
+          <li class="feat yes">50 GB storage</li>
+          <li class="feat no">Direct publish</li>
+          <li class="feat no">Priority GPU</li>
+          <li class="feat no">Auto hashtag GPT</li>
+        </ul>
+        <a href="auth.html" class="btn btn-primary btn-full" style="margin-top:24px;border-radius:10px;padding:14px;">Start 7-Day Free Trial</a>
+        <p style="text-align:center;font-size:0.75rem;color:var(--text-muted);margin-top:10px;">No credit card required</p>
+      </div>
+
+      <!-- Creator -->
+      <div class="pricing-full-card">
+        <div style="margin-bottom:24px;">
+          <div style="font-size:1.5rem;margin-bottom:8px;">🚀</div>
+          <div class="pricing-tier">Creator</div>
+          <div class="pricing-price">
+            <span class="price-amount" data-monthly="$49" data-annual="$39">$49</span>
+            <span class="price-period">/mo</span>
+          </div>
+          <p class="pricing-desc">For full-time creators who publish every day.</p>
+        </div>
+        <ul class="pricing-features" style="flex:1;">
+          <li class="feat yes">Unlimited clips</li>
+          <li class="feat yes">4K HDR export</li>
+          <li class="feat yes">All games + custom game</li>
+          <li class="feat yes">No watermark</li>
+          <li class="feat yes">Priority GPU rendering</li>
+          <li class="feat yes"><strong>Direct publish</strong> to YouTube/TikTok</li>
+          <li class="feat yes">Auto hashtag GPT</li>
+          <li class="feat yes">200 GB storage</li>
+          <li class="feat yes">Analytics dashboard</li>
+          <li class="feat no">White-label</li>
+          <li class="feat no">API access</li>
+        </ul>
+        <a href="auth.html" class="btn btn-outline btn-full" style="margin-top:24px;border-radius:10px;padding:14px;">Start Creator Trial</a>
+      </div>
+
+      <!-- Agency -->
+      <div class="pricing-full-card">
+        <div style="margin-bottom:24px;">
+          <div style="font-size:1.5rem;margin-bottom:8px;">🏢</div>
+          <div class="pricing-tier">Agency</div>
+          <div class="pricing-price">
+            <span class="price-amount" data-monthly="$149" data-annual="$119">$149</span>
+            <span class="price-period">/mo</span>
+          </div>
+          <p class="pricing-desc">For esports orgs and content agencies.</p>
+        </div>
+        <ul class="pricing-features" style="flex:1;">
+          <li class="feat yes">Everything in Creator</li>
+          <li class="feat yes">5 team seats</li>
+          <li class="feat yes">White-label branding</li>
+          <li class="feat yes">API access + webhooks</li>
+          <li class="feat yes">Dedicated account manager</li>
+          <li class="feat yes">Custom game model training</li>
+          <li class="feat yes">1 TB storage</li>
+          <li class="feat yes">SLA uptime guarantee</li>
+          <li class="feat yes">Priority support</li>
+        </ul>
+        <a href="auth.html" class="btn btn-outline btn-full" style="margin-top:24px;border-radius:10px;padding:14px;">Contact Sales</a>
+      </div>
+
+    </div>
+
+    <!-- Feature Comparison Table -->
+    <div class="reveal" style="margin-top:80px;">
+      <h2 class="section-title" style="text-align:center;margin-bottom:40px;">Full <span class="gradient-text">Feature Comparison</span></h2>
+      <div style="overflow-x:auto;">
+        <table class="compare-table" style="width:100%;border-collapse:collapse;">
+          <thead>
+            <tr>
+              <th style="width:35%;text-align:left;">Feature</th>
+              <th style="text-align:center;">Free</th>
+              <th class="featured-col" style="text-align:center;">Pro</th>
+              <th style="text-align:center;">Creator</th>
+              <th style="text-align:center;">Agency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="feature-name" style="padding:14px 20px;font-weight:600;color:var(--text-muted);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.06em;background:var(--bg-secondary);" colspan="5">Clip Generation</td></tr>
+            <tr><td class="feature-name">Monthly clips</td><td style="text-align:center;font-size:0.88rem;">3</td><td class="featured-col" style="text-align:center;font-size:0.88rem;">30</td><td style="text-align:center;font-size:0.88rem;">Unlimited</td><td style="text-align:center;font-size:0.88rem;">Unlimited</td></tr>
+            <tr><td class="feature-name">Max export quality</td><td style="text-align:center;font-size:0.88rem;">720p</td><td class="featured-col" style="text-align:center;font-size:0.88rem;">1080p 60fps</td><td style="text-align:center;font-size:0.88rem;">4K HDR</td><td style="text-align:center;font-size:0.88rem;">4K HDR</td></tr>
+            <tr><td class="feature-name">Watermark</td><td style="text-align:center;" class="cross">✕</td><td class="featured-col" style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td></tr>
+
+            <tr><td class="feature-name" style="padding:14px 20px;font-weight:600;color:var(--text-muted);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.06em;background:var(--bg-secondary);" colspan="5">AI Detection</td></tr>
+            <tr><td class="feature-name">Audio peak detection</td><td style="text-align:center;" class="check">✓</td><td class="featured-col" style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td></tr>
+            <tr><td class="feature-name">YOLO killfeed scanning</td><td style="text-align:center;" class="check">✓</td><td class="featured-col" style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td></tr>
+            <tr><td class="feature-name">Chat sentiment AI</td><td style="text-align:center;" class="cross">✕</td><td class="featured-col" style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td></tr>
+            <tr><td class="feature-name">Custom game model</td><td style="text-align:center;" class="cross">✕</td><td class="featured-col" style="text-align:center;" class="cross">✕</td><td style="text-align:center;" class="cross">✕</td><td style="text-align:center;" class="check">✓</td></tr>
+
+            <tr><td class="feature-name" style="padding:14px 20px;font-weight:600;color:var(--text-muted);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.06em;background:var(--bg-secondary);" colspan="5">Publishing</td></tr>
+            <tr><td class="feature-name">Download MP4</td><td style="text-align:center;" class="check">✓</td><td class="featured-col" style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td></tr>
+            <tr><td class="feature-name">Direct publish (YouTube/TikTok)</td><td style="text-align:center;" class="cross">✕</td><td class="featured-col" style="text-align:center;" class="cross">✕</td><td style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td></tr>
+            <tr><td class="feature-name">Auto hashtag generation (GPT)</td><td style="text-align:center;" class="cross">✕</td><td class="featured-col" style="text-align:center;" class="cross">✕</td><td style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td></tr>
+
+            <tr><td class="feature-name" style="padding:14px 20px;font-weight:600;color:var(--text-muted);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.06em;background:var(--bg-secondary);" colspan="5">Support & Access</td></tr>
+            <tr><td class="feature-name">Support tier</td><td style="text-align:center;font-size:0.82rem;">Community</td><td class="featured-col" style="text-align:center;font-size:0.82rem;">Email</td><td style="text-align:center;font-size:0.82rem;">Priority</td><td style="text-align:center;font-size:0.82rem;">Dedicated</td></tr>
+            <tr><td class="feature-name">API access</td><td style="text-align:center;" class="cross">✕</td><td class="featured-col" style="text-align:center;" class="cross">✕</td><td style="text-align:center;" class="cross">✕</td><td style="text-align:center;" class="check">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div style="margin-top:80px;max-width:720px;margin-left:auto;margin-right:auto;" class="reveal">
+      <h2 class="section-title" style="text-align:center;margin-bottom:40px;">Frequently Asked <span class="gradient-text">Questions</span></h2>
+
+      <div id="faqList" style="display:flex;flex-direction:column;gap:0;">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">How long does it take to generate clips? <span class="faq-arrow">▼</span></button>
+          <div class="faq-a" style="display:none;">
+            <p>On average, a 1-hour stream takes about 3–5 minutes to analyze and 2–4 minutes to render 5 clips at 1080p. Creator plan users get priority GPU queues for faster turnaround.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Do I need any software installed? <span class="faq-arrow">▼</span></button>
+          <div class="faq-a" style="display:none;">
+            <p>No! Everything runs in the cloud. You just need a modern web browser. No downloads, no local hardware requirements — just paste a link and let ClipForge AI do the work.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Which games are supported? <span class="faq-arrow">▼</span></button>
+          <div class="faq-a" style="display:none;">
+            <p>Currently BGMI, VALORANT, Warzone, and Free Fire have fine-tuned YOLO v8 models. Generic detection works for any game — specific game support is added based on user requests.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Can I cancel my subscription anytime? <span class="faq-arrow">▼</span></button>
+          <div class="faq-a" style="display:none;">
+            <p>Yes! You can cancel at any time from the Settings page. Your plan stays active until the end of the billing period. No questions asked, no hidden fees.</p>
+          </div>
+        </div>
+        <div class="faq-item" style="border-bottom:none;">
+          <button class="faq-q" onclick="toggleFaq(this)">What happens to my videos after processing? <span class="faq-arrow">▼</span></button>
+          <div class="faq-a" style="display:none;">
+            <p>Raw videos are stored for 30 days (configurable), then auto-deleted to save your storage quota. Generated clips stay as long as you need them. We never sell or share your footage.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div style="text-align:center;margin-top:80px;padding-top:60px;border-top:1px solid var(--border);" class="reveal">
+      <h2 class="section-title">Start Clipping Today<br /><span class="gradient-text">100% Free</span></h2>
+      <p style="color:var(--text-secondary);margin-bottom:32px;font-size:1rem;">No credit card. No commitment. 3 free clips every month, forever.</p>
+      <a href="auth.html" class="btn btn-primary btn-xl">⚡ Create Free Account →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo footer-logo"><div class="logo-icon">⚡</div><span class="logo-text">ClipForge<span class="logo-ai">AI</span></span></a>
+      <p class="footer-tagline">The AI that clips so you don't have to.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4 class="footer-col-title">Product</h4>
+        <a href="index.html#features" class="footer-link">Features</a>
+        <a href="pricing.html" class="footer-link">Pricing</a>
+        <a href="dashboard.html" class="footer-link">Dashboard</a>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Games</h4>
+        <a href="#" class="footer-link">BGMI</a>
+        <a href="#" class="footer-link">VALORANT</a>
+        <a href="#" class="footer-link">Warzone</a>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Legal</h4>
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Terms</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 ClipForge AI. All rights reserved.</p></div>
+</footer>
+
+<style>
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 20px 0;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  transition: color var(--transition);
+}
+.faq-q:hover { color: var(--accent-purple-light); }
+.faq-arrow { transition: transform var(--transition); flex-shrink: 0; font-size: 0.7rem; }
+.faq-q.open .faq-arrow { transform: rotate(180deg); }
+.faq-a { padding: 0 0 20px; color: var(--text-secondary); font-size: 0.92rem; line-height: 1.7; }
+</style>
+
+<script src="scripts/main.js"></script>
+<script>
+function toggleFaq(btn) {
+  const ans = btn.nextElementSibling;
+  const isOpen = ans.style.display === 'block';
+  document.querySelectorAll('.faq-a').forEach(a => a.style.display = 'none');
+  document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
+  if (!isOpen) { ans.style.display = 'block'; btn.classList.add('open'); }
+}
+</script>
+</body>
+</html>

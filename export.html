@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Export Hub — ClipForge AI</title>
+  <meta name="description" content="Publish your AI gaming clips directly to YouTube Shorts, TikTok, and Instagram Reels." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <meta property="og:title" content="Export Hub — ClipForge AI" />
+  <meta property="og:description" content="Publish gaming clips to YouTube Shorts, TikTok, and Instagram Reels automatically." />
+  <meta property="og:image" content="https://clipforge.ai/assets/og-image.png" />
+  <meta property="og:site_name" content="ClipForge AI" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/dashboard.css" />
+</head>
+<body>
+<div class="dash-layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><a href="index.html" class="nav-logo"><div class="logo-icon">⚡</div><span class="logo-text">ClipForge<span class="logo-ai">AI</span></span></a></div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-title">Main</div>
+      <a href="dashboard.html" class="sidebar-link"><span class="s-icon">🏠</span> Dashboard</a>
+      <a href="new-clip.html" class="sidebar-link"><span class="s-icon">➕</span> New Clip<span class="sidebar-badge">New</span></a>
+      <a href="my-clips.html" class="sidebar-link"><span class="s-icon">🎬</span> My Clips</a>
+      <a href="my-videos.html" class="sidebar-link"><span class="s-icon">📹</span> My Videos</a>
+      <div class="sidebar-section-title">Publish</div>
+      <a href="export.html" class="sidebar-link active"><span class="s-icon">📤</span> Export Hub</a>
+      <div class="sidebar-section-title">Account</div>
+      <a href="settings.html" class="sidebar-link"><span class="s-icon">⚙️</span> Settings</a>
+      <a href="pricing.html" class="sidebar-link"><span class="s-icon">👑</span> Upgrade Plan</a>
+      <a href="index.html" class="sidebar-link"><span class="s-icon">🌐</span> Back to Site</a>
+    </nav>
+    <div class="sidebar-footer"><div class="sidebar-user"><div class="user-avatar">RK</div><div><div class="user-name">Raj Khiladi</div><div class="user-plan">⚡ Pro Plan</div></div></div></div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="topbar-icon-btn" id="sidebarToggle">☰</button>
+        <span class="dash-page-title">Export Hub</span>
+      </div>
+      <div class="dash-topbar-right">
+        <button class="btn btn-primary" style="font-size:0.85rem;padding:8px 18px;" id="publishAllBtn" onclick="publishAll()">
+          🚀 Publish All Selected (<span id="exportCount">0</span>)
+        </button>
+      </div>
+    </div>
+
+    <div class="dash-content page-enter">
+
+      <!-- Platform Connections -->
+      <div class="reveal" style="margin-bottom:24px;">
+        <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:600;margin-bottom:16px;">Connected Platforms</h3>
+        <div class="platform-cards">
+          <div class="platform-card connected">
+            <div class="platform-logo">▶</div>
+            <div class="platform-name">YouTube Shorts</div>
+            <div class="platform-status connected">✅ Connected as @RajKhiladi</div>
+            <button class="btn btn-outline" style="font-size:0.8rem;padding:7px 16px;" onclick="window.ClipForge?.toast('Disconnecting YouTube...','info')">Disconnect</button>
+          </div>
+          <div class="platform-card">
+            <div class="platform-logo" style="color:var(--text-muted);">♪</div>
+            <div class="platform-name">TikTok</div>
+            <div class="platform-status">Not connected</div>
+            <button class="btn btn-primary" style="font-size:0.8rem;padding:7px 16px;" onclick="connectPlatform('TikTok')">Connect TikTok</button>
+          </div>
+          <div class="platform-card">
+            <div class="platform-logo" style="color:var(--text-muted);">◉</div>
+            <div class="platform-name">Instagram Reels</div>
+            <div class="platform-status">Not connected</div>
+            <button class="btn btn-primary" style="font-size:0.8rem;padding:7px 16px;" onclick="connectPlatform('Instagram')">Connect Instagram</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start;">
+
+        <!-- Left: Clip Selection -->
+        <div class="card reveal">
+          <div class="card-header">
+            <span class="card-title">🎬 Select Clips to Export</span>
+            <span style="font-size:0.82rem;color:var(--text-muted);">Click to select · <span id="exportCount2">0</span> selected</span>
+          </div>
+          <div class="card-body">
+            <div class="export-clip-select" id="exportClipGrid">
+
+              <div class="export-clip-item" data-id="clip1">
+                <div class="export-clip-check">✓</div>
+                <div style="aspect-ratio:9/16;max-height:130px;background:linear-gradient(135deg,rgba(124,58,237,0.25),rgba(6,182,212,0.1));display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🔥</div>
+                <div style="padding:8px;">
+                  <div style="font-size:0.75rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">1v4 Quad Kill</div>
+                  <div style="font-size:0.65rem;color:var(--text-muted);">0:28 · Score 9.4</div>
+                </div>
+              </div>
+
+              <div class="export-clip-item" data-id="clip2">
+                <div class="export-clip-check">✓</div>
+                <div style="aspect-ratio:9/16;max-height:130px;background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(236,72,153,0.1));display:flex;align-items:center;justify-content:center;font-size:1.5rem;">😂</div>
+                <div style="padding:8px;">
+                  <div style="font-size:0.75rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Vine Boom Fail</div>
+                  <div style="font-size:0.65rem;color:var(--text-muted);">0:15 · Score 7.8</div>
+                </div>
+              </div>
+
+              <div class="export-clip-item" data-id="clip4">
+                <div class="export-clip-check">✓</div>
+                <div style="aspect-ratio:9/16;max-height:130px;background:linear-gradient(135deg,rgba(124,58,237,0.25),rgba(245,158,11,0.1));display:flex;align-items:center;justify-content:center;font-size:1.5rem;">💥</div>
+                <div style="padding:8px;">
+                  <div style="font-size:0.75rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Triple Headshot</div>
+                  <div style="font-size:0.65rem;color:var(--text-muted);">0:22 · Score 8.6</div>
+                </div>
+              </div>
+
+              <div class="export-clip-item" data-id="clip5">
+                <div class="export-clip-check">✓</div>
+                <div style="aspect-ratio:9/16;max-height:130px;background:linear-gradient(135deg,rgba(6,182,212,0.2),rgba(124,58,237,0.1));display:flex;align-items:center;justify-content:center;font-size:1.5rem;">⚡</div>
+                <div style="padding:8px;">
+                  <div style="font-size:0.75rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Speed Rush</div>
+                  <div style="font-size:0.65rem;color:var(--text-muted);">0:18 · Score 8.1</div>
+                </div>
+              </div>
+
+              <div class="export-clip-item" data-id="clip6">
+                <div class="export-clip-check">✓</div>
+                <div style="aspect-ratio:9/16;max-height:130px;background:linear-gradient(135deg,rgba(236,72,153,0.2),rgba(124,58,237,0.1));display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🎯</div>
+                <div style="padding:8px;">
+                  <div style="font-size:0.75rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">No-Scope Kill</div>
+                  <div style="font-size:0.65rem;color:var(--text-muted);">0:12 · Score 7.5</div>
+                </div>
+              </div>
+
+              <div class="export-clip-item" data-id="clip8">
+                <div class="export-clip-check">✓</div>
+                <div style="aspect-ratio:9/16;max-height:130px;background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(16,185,129,0.1));display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🤣</div>
+                <div style="padding:8px;">
+                  <div style="font-size:0.75rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Chat Goes Crazy</div>
+                  <div style="font-size:0.65rem;color:var(--text-muted);">0:25 · Score 8.9</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Publish Settings -->
+        <div style="display:flex;flex-direction:column;gap:20px;position:sticky;top:80px;">
+
+          <div class="card">
+            <div class="card-header"><span class="card-title">⚙️ Publish Settings</span></div>
+            <div class="card-body" style="display:flex;flex-direction:column;gap:16px;">
+
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Publish to platforms</label>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:0.88rem;">
+                    <input type="checkbox" checked style="accent-color:var(--accent-purple);width:16px;height:16px;" />
+                    ▶ YouTube Shorts
+                  </label>
+                  <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:0.88rem;opacity:0.5;">
+                    <input type="checkbox" disabled style="accent-color:var(--accent-purple);width:16px;height:16px;" />
+                    ♪ TikTok <span style="font-size:0.72rem;color:var(--accent-amber);">(Connect first)</span>
+                  </label>
+                  <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:0.88rem;opacity:0.5;">
+                    <input type="checkbox" disabled style="accent-color:var(--accent-purple);width:16px;height:16px;" />
+                    ◉ Instagram <span style="font-size:0.72rem;color:var(--accent-amber);">(Connect first)</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Title template</label>
+                <input type="text" class="form-input" value="🔥 {event_type} Highlight | {game} | #Shorts" style="font-size:0.85rem;" />
+              </div>
+
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Auto-generated hashtags</label>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;padding:12px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);">
+                  <span class="tag">#BGMI</span>
+                  <span class="tag">#Gaming</span>
+                  <span class="tag">#Shorts</span>
+                  <span class="tag">#ClipForge</span>
+                  <span class="tag">#Clutch</span>
+                  <span class="tag">#MultiKill</span>
+                  <span style="font-size:0.75rem;color:var(--text-muted);align-self:center;">+ GPT-generated</span>
+                </div>
+              </div>
+
+              <div class="toggle-wrap" style="padding:8px 0;border-bottom:none;">
+                <div>
+                  <div class="toggle-label">Schedule publish</div>
+                  <div class="toggle-sub">Optimal posting times (9AM, 6PM)</div>
+                </div>
+                <button class="toggle" id="scheduleToggle"></button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Download Option -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">⬇ Download Locally</span></div>
+            <div class="card-body" style="display:flex;flex-direction:column;gap:10px;">
+              <p style="font-size:0.82rem;color:var(--text-muted);">Download all selected clips as a ZIP file to your computer.</p>
+              <select class="form-input form-select" style="font-size:0.85rem;">
+                <option>1080p MP4 (Recommended)</option>
+                <option>720p MP4</option>
+                <option>4K MP4 (Creator plan)</option>
+              </select>
+              <button class="btn btn-outline btn-full" onclick="downloadAll()">⬇ Download as ZIP</button>
+            </div>
+          </div>
+
+          <!-- Recent Exports -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">📊 Recent Exports</span></div>
+            <div class="card-body" style="padding:0 24px;">
+              <div class="activity-feed">
+                <div class="activity-item">
+                  <div class="activity-icon" style="background:rgba(255,0,0,0.1);font-size:0.9rem;">▶</div>
+                  <div class="activity-info">
+                    <div class="activity-title">1v4 Clutch → YouTube Shorts</div>
+                    <div class="activity-meta">14.2K views · 1h ago</div>
+                  </div>
+                  <span class="status-badge status-done" style="font-size:0.7rem;">Live</span>
+                </div>
+                <div class="activity-item" style="padding-bottom:0;border-bottom:none;">
+                  <div class="activity-icon" style="background:rgba(0,0,0,0.2);font-size:0.9rem;">♪</div>
+                  <div class="activity-info">
+                    <div class="activity-title">Triple Headshot → TikTok</div>
+                    <div class="activity-meta">Pending connection</div>
+                  </div>
+                  <span class="status-badge status-queue" style="font-size:0.7rem;">Pending</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="scripts/main.js"></script>
+<script>
+// Sync both export count spans
+const origUpdate = window.updateExportCount;
+function updateExportCount() {
+  const selected = document.querySelectorAll('.export-clip-item.selected').length;
+  document.getElementById('exportCount').textContent  = selected;
+  document.getElementById('exportCount2').textContent = selected;
+}
+// override click
+document.querySelectorAll('.export-clip-item').forEach(item => {
+  item.addEventListener('click', () => {
+    item.classList.toggle('selected');
+    updateExportCount();
+  });
+});
+
+function publishAll() {
+  const count = document.querySelectorAll('.export-clip-item.selected').length;
+  if (!count) { window.ClipForge?.toast('Select at least one clip first!','error'); return; }
+  window.ClipForge?.toast(`🚀 Publishing ${count} clips to YouTube Shorts...`, 'success');
+  document.getElementById('publishAllBtn').innerHTML = '⏳ Publishing...';
+  document.getElementById('publishAllBtn').disabled = true;
+  setTimeout(() => {
+    window.ClipForge?.toast('✅ All clips published successfully!', 'success');
+    document.getElementById('publishAllBtn').innerHTML = '✅ Published!';
+  }, 3000);
+}
+
+function downloadAll() {
+  const count = document.querySelectorAll('.export-clip-item.selected').length;
+  if (!count) { window.ClipForge?.toast('Select at least one clip first!','error'); return; }
+  window.ClipForge?.toast(`⬇ Preparing ZIP with ${count} clips...`, 'info');
+}
+
+function connectPlatform(name) {
+  window.ClipForge?.toast(`🔗 Redirecting to ${name} OAuth...`, 'info');
+}
+</script>
+</body>
+</html>

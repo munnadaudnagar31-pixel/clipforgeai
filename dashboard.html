@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — ClipForge AI</title>
+  <meta name="description" content="ClipForge AI dashboard — view your clips, analytics, and start generating new highlights." />
+  <meta name="robots" content="noindex, nofollow" />
+  <!-- Favicon + PWA -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <!-- Open Graph (for sharing dashboard screenshots) -->
+  <meta property="og:title" content="ClipForge AI Dashboard" />
+  <meta property="og:description" content="AI-powered gaming highlight clip generator dashboard." />
+  <meta property="og:image" content="https://clipforge.ai/assets/og-image.png" />
+  <meta property="og:site_name" content="ClipForge AI" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/dashboard.css" />
+</head>
+<body>
+
+<div class="dash-layout">
+
+  <!-- ── Sidebar ──────────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">⚡</div>
+        <span class="logo-text">ClipForge<span class="logo-ai">AI</span></span>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-title">Main</div>
+      <a href="dashboard.html" class="sidebar-link active" data-page="dashboard.html">
+        <span class="s-icon">🏠</span> Dashboard
+      </a>
+      <a href="new-clip.html" class="sidebar-link" data-page="new-clip.html">
+        <span class="s-icon">➕</span> New Clip
+        <span class="sidebar-badge">New</span>
+      </a>
+      <a href="my-clips.html" class="sidebar-link" data-page="my-clips.html">
+        <span class="s-icon">🎬</span> My Clips
+      </a>
+      <a href="my-videos.html" class="sidebar-link" data-page="my-videos.html">
+        <span class="s-icon">📹</span> My Videos
+      </a>
+
+      <div class="sidebar-section-title">Publish</div>
+      <a href="export.html" class="sidebar-link" data-page="export.html">
+        <span class="s-icon">📤</span> Export Hub
+      </a>
+
+      <div class="sidebar-section-title">Account</div>
+      <a href="settings.html" class="sidebar-link" data-page="settings.html">
+        <span class="s-icon">⚙️</span> Settings
+      </a>
+      <a href="pricing.html" class="sidebar-link" data-page="pricing.html">
+        <span class="s-icon">👑</span> Upgrade Plan
+      </a>
+      <a href="index.html" class="sidebar-link">
+        <span class="s-icon">🌐</span> Back to Site
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar">RK</div>
+        <div>
+          <div class="user-name">Raj Khiladi</div>
+          <div class="user-plan">⚡ Pro Plan</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main ─────────────────────────────────────────────────── -->
+  <main class="dash-main">
+
+    <!-- Topbar -->
+    <div class="dash-topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="topbar-icon-btn" id="sidebarToggle" aria-label="Toggle sidebar">☰</button>
+        <span class="dash-page-title">Dashboard</span>
+      </div>
+      <div class="dash-topbar-right">
+        <div class="topbar-icon-btn notif-dot" title="Notifications">🔔</div>
+        <a href="new-clip.html" class="btn btn-primary" style="font-size:0.85rem;padding:8px 18px;">+ New Clip</a>
+      </div>
+    </div>
+
+    <div class="dash-content page-enter">
+
+      <!-- Welcome Banner -->
+      <div style="background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(6,182,212,0.08));border:1px solid rgba(124,58,237,0.25);border-radius:var(--radius-lg);padding:28px 32px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;">
+        <div>
+          <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;margin-bottom:6px;">Good morning, Raj! 👋</h2>
+          <p style="color:var(--text-secondary);font-size:0.9rem;">You have <strong style="color:var(--accent-purple-light);">2 clips rendering</strong> and <strong style="color:var(--accent-green);">5 ready to export</strong>. Your top clip got 14K views this week!</p>
+        </div>
+        <a href="new-clip.html" class="btn btn-primary btn-lg">🚀 Generate New Clip</a>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="stat-cards reveal">
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Total Clips</span>
+            <div class="stat-card-icon" style="background:rgba(124,58,237,0.15)">🎬</div>
+          </div>
+          <div class="stat-card-value gradient-text" id="stat-clips">—</div>
+          <div class="stat-card-change up">↑ Growing this month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Total Views</span>
+            <div class="stat-card-icon" style="background:rgba(6,182,212,0.15)">👁️</div>
+          </div>
+          <div class="stat-card-value gradient-text" id="stat-views">—</div>
+          <div class="stat-card-change up">↑ +34% vs last month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Clips Published</span>
+            <div class="stat-card-icon" style="background:rgba(16,185,129,0.15)">📤</div>
+          </div>
+          <div class="stat-card-value gradient-text" id="stat-published">—</div>
+          <div class="stat-card-change up">↑ +8 this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-label">Plan Usage</span>
+            <div class="stat-card-icon" style="background:rgba(245,158,11,0.15)">⚡</div>
+          </div>
+          <div class="stat-card-value gradient-text" id="stat-usage">—</div>
+          <div class="stat-card-change up">clips this month</div>
+        </div>
+      </div>
+
+      <!-- Main Grid -->
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-bottom:24px;" class="reveal">
+
+        <!-- Clips Performance Chart -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📊 Clip Performance (Last 14 Days)</span>
+            <select class="form-input" style="width:auto;padding:6px 12px;font-size:0.8rem;">
+              <option>Views</option>
+              <option>Clips Generated</option>
+              <option>Exports</option>
+            </select>
+          </div>
+          <div class="card-body">
+            <div class="chart-area" id="chartArea"></div>
+            <div class="chart-x-labels">
+              <span>Jun 21</span><span></span><span></span><span></span><span>Jun 25</span>
+              <span></span><span></span><span></span><span>Jun 29</span><span></span>
+              <span></span><span></span><span>Jul 3</span><span>Today</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plan Usage -->
+        <div style="display:flex;flex-direction:column;gap:20px;">
+            <div class="plan-usage-card">
+              <div class="plan-badge" id="planName">⚡ Pro Plan</div>
+              <div>
+                <div class="plan-usage-row">
+                  <span class="plan-usage-label">Clips this month</span>
+                  <span class="plan-usage-count" id="planUsageText">— / —</span>
+                </div>
+                <div class="usage-bar-wrap">
+                  <div class="usage-bar-fill" id="planBar" style="width:0%"></div>
+                </div>
+              </div>
+              <a href="pricing.html" class="btn btn-primary btn-full" style="font-size:0.85rem;">Upgrade to Creator</a>
+            </div>
+
+          <!-- Quick Actions -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">⚡ Quick Actions</span></div>
+            <div class="card-body" style="padding:16px;">
+              <div class="quick-actions">
+                <a href="new-clip.html" class="quick-action-btn">
+                  <span class="quick-action-icon">🔗</span> Paste URL
+                </a>
+                <a href="new-clip.html" class="quick-action-btn">
+                  <span class="quick-action-icon">📁</span> Upload File
+                </a>
+                <a href="my-clips.html" class="quick-action-btn">
+                  <span class="quick-action-icon">🎬</span> View Clips
+                </a>
+                <a href="export.html" class="quick-action-btn">
+                  <span class="quick-action-icon">📤</span> Export All
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Clips -->
+      <div class="card reveal" style="margin-bottom:24px;">
+        <div class="card-header">
+          <span class="card-title">🔥 Recent Clips</span>
+          <a href="my-clips.html" class="btn btn-ghost" style="font-size:0.82rem;">View all →</a>
+        </div>
+        <div class="card-body" style="padding:16px;" id="miniClipsContainer">
+          <!-- Populated by CF.ui.renderMiniClips() -->
+        </div>
+      </div>
+
+      <!-- Activity Feed -->
+      <div class="card reveal">
+        <div class="card-header">
+          <span class="card-title">📋 Recent Activity</span>
+        </div>
+        <div class="card-body" style="padding:0 24px;">
+          <div class="activity-feed" id="activityFeed"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="scripts/main.js"></script>
+<script src="scripts/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  CF.ui.renderDashStats();
+  CF.ui.renderActivity('activityFeed');
+  CF.ui.renderMiniClips('miniClipsContainer');
+
+  // Update welcome message with time-of-day greeting
+  const user = CF.user.get();
+  const greet = document.querySelector('.dash-content h2');
+  const hour = new Date().getHours();
+  const tod = hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
+  if (greet) greet.innerHTML = `Good ${tod}, ${user.name.split(' ')[0]}! 👋`;
+
+  // Plan name
+  const planName = document.getElementById('planName');
+  if (planName) planName.textContent = `⚡ ${user.plan} Plan`;
+
+  // ── Render performance chart ──────────────────────────────────
+  const chartArea = document.getElementById('chartArea');
+  if (chartArea) {
+    // Generate 14-day synthetic view data seeded from real clips
+    const clips = CF.clips.getAll();
+    const totalViews = clips.reduce((s, c) => s + (c.views || 0), 0);
+    const baseViews = Math.max(200, Math.round(totalViews / 14));
+
+    const data = Array.from({ length: 14 }, (_, i) => {
+      const jitter = 0.4 + Math.random() * 1.2;
+      const spike = (i === 6 || i === 11) ? 2.5 : 1;
+      return Math.round(baseViews * jitter * spike);
+    });
+
+    const maxVal = Math.max(...data);
+    chartArea.innerHTML = data.map((v, i) => {
+      const heightPct = Math.max(4, Math.round((v / maxVal) * 100));
+      const isHighlight = v === maxVal;
+      return `<div class="chart-bar ${isHighlight ? 'highlight' : ''}"
+        style="height:${heightPct}%"
+        data-val="${v >= 1000 ? (v/1000).toFixed(1)+'K' : v}"
+        title="Day ${i+1}: ${v.toLocaleString()} views"></div>`;
+    }).join('');
+
+    // Animate bars in
+    setTimeout(() => {
+      chartArea.querySelectorAll('.chart-bar').forEach((bar, i) => {
+        bar.style.animation = `none`;
+        bar.style.transform = 'scaleY(0)';
+        bar.style.transformOrigin = 'bottom';
+        bar.style.transition = 'none';
+        setTimeout(() => {
+          bar.style.transition = `transform 0.5s cubic-bezier(0.34,1.56,0.64,1) ${i * 40}ms`;
+          bar.style.transform = 'scaleY(1)';
+        }, 50);
+      });
+    }, 100);
+
+    // Chart metric switcher
+    const chartSelect = chartArea.closest('.card')?.querySelector('select');
+    if (chartSelect) {
+      chartSelect.addEventListener('change', () => {
+        const metric = chartSelect.value;
+        const newData = data.map(v =>
+          metric === 'Clips Generated' ? Math.round(v / 3000) + 1 :
+          metric === 'Exports'         ? Math.round(v / 5000) :
+          v
+        );
+        const newMax = Math.max(...newData, 1);
+        chartArea.querySelectorAll('.chart-bar').forEach((bar, i) => {
+          const h = Math.max(4, Math.round((newData[i] / newMax) * 100));
+          const label = metric === 'Views'
+            ? (newData[i] >= 1000 ? (newData[i]/1000).toFixed(1)+'K' : newData[i])
+            : newData[i];
+          bar.style.transition = `height 0.4s cubic-bezier(0.34,1.56,0.64,1) ${i*30}ms`;
+          bar.style.height = h + '%';
+          bar.setAttribute('data-val', label);
+        });
+      });
+    }
+  }
+});
+</script>
+<script>
+// ── Dashboard Auth Guard + Real Data ─────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  // Require authentication — redirects to auth.html if no token
+  const user = await CF.auth.populateDash();
+  if (!user) return;  // redirect already triggered
+
+  // Update welcome banner with real name
+  const banner = document.querySelector('.dash-content h2');
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  if (banner) banner.textContent = `${greeting}, ${user.name.split(' ')[0]}! 👋`;
+});
+</script>
+</body>
+</html>

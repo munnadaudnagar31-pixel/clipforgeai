@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClipForge AI — Turn Your Stream into Viral Shorts Automatically</title>
+  <meta name="description" content="ClipForge AI uses Computer Vision and Audio AI to detect your best gaming highlights, edit them into 9:16 vertical format, and publish to YouTube Shorts & TikTok automatically." />
+  <!-- Favicon + PWA -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#7c3aed" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ClipForge AI" />
+  <meta property="og:title" content="ClipForge AI — Turn Your Stream into Viral Clips Automatically" />
+  <meta property="og:description" content="Paste your Twitch/YouTube link. Our AI detects clutches, kills, and funny moments — then auto-edits them into 9:16 vertical Shorts ready to blow up." />
+  <meta property="og:image" content="https://clipforge.ai/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://clipforge.ai/" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@clipforgeai" />
+  <meta name="twitter:title" content="ClipForge AI — Turn Your Stream into Viral Clips Automatically" />
+  <meta name="twitter:description" content="AI-powered gaming highlight clip generator. Paste a stream link, get viral-ready Shorts in minutes." />
+  <meta name="twitter:image" content="https://clipforge.ai/assets/og-image.png" />
+  <!-- Canonical -->
+  <link rel="canonical" href="https://clipforge.ai/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+
+<!-- ── NAVIGATION ────────────────────────────────────────────────── -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">⚡</div>
+      <span class="logo-text">ClipForge<span class="logo-ai">AI</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features" class="nav-link">Features</a></li>
+      <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+      <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+      <li><a href="#testimonials" class="nav-link">Reviews</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="auth.html" class="btn btn-ghost">Sign In</a>
+      <a href="auth.html" class="btn btn-primary">Start Free →</a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#features" class="mobile-link">Features</a>
+  <a href="#how-it-works" class="mobile-link">How It Works</a>
+  <a href="pricing.html" class="mobile-link">Pricing</a>
+  <a href="auth.html" class="mobile-link mobile-link-cta">Start Free →</a>
+</div>
+
+<!-- ── HERO ──────────────────────────────────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      <span>AI-Powered Highlight Detection • Now in Beta</span>
+    </div>
+
+    <h1 class="hero-title">
+      Turn Your Stream into
+      <span class="gradient-text">Viral Clips</span>
+      <br />in Under 10 Minutes
+    </h1>
+
+    <p class="hero-subtitle">
+      Paste your Twitch/YouTube link. Our AI detects clutches, kills, and funny moments —
+      then auto-edits them into 9:16 vertical Shorts ready to blow up.
+      No editing skills needed. Zero hardware required.
+    </p>
+
+    <div class="hero-actions">
+      <a href="auth.html" class="btn btn-primary btn-lg">
+        <span>🚀</span> Start Clipping Free
+      </a>
+      <a href="#how-it-works" class="btn btn-outline btn-lg">
+        <span>▶</span> See How It Works
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num" data-target="12400">0</span>
+        <span class="stat-label">Clips Generated</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="3200">0</span>
+        <span class="stat-label">Active Streamers</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="99" data-suffix="%">0</span>
+        <span class="stat-label">Uptime</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="4">0</span>
+        <span class="stat-label">Games Supported</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Mockup -->
+  <div class="hero-mockup">
+    <div class="mockup-window">
+      <div class="mockup-bar">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="mockup-url">app.clipforge.ai/dashboard/new</span>
+      </div>
+      <div class="mockup-content">
+        <div class="mockup-upload-area">
+          <div class="upload-icon">🎮</div>
+          <p class="upload-title">Drop gameplay or paste link</p>
+          <div class="url-input-mock">
+            <span class="url-prefix">🔗</span>
+            <span class="url-text">https://www.twitch.tv/videos/...</span>
+            <span class="url-cta">Analyze →</span>
+          </div>
+        </div>
+        <div class="mockup-ai-processing">
+          <div class="ai-step done">✓ Download complete (2.1 GB)</div>
+          <div class="ai-step done">✓ Audio peaks: 14 detected</div>
+          <div class="ai-step active">⚡ YOLO scanning killfeed... 67%
+            <div class="progress-bar"><div class="progress-fill" style="width:67%"></div></div>
+          </div>
+          <div class="ai-step pending">○ Rendering 9:16 clips</div>
+          <div class="ai-step pending">○ Syncing background music</div>
+        </div>
+        <div class="mockup-clips">
+          <div class="clip-thumb">🔥<span>Multi-Kill · 0:43</span></div>
+          <div class="clip-thumb">😂<span>Funny · 1:12</span></div>
+          <div class="clip-thumb">🏆<span>Victory · 2:58</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supported games -->
+  <div class="games-bar">
+    <span class="games-label">Supported Games:</span>
+    <div class="game-badge">🎯 BGMI</div>
+    <div class="game-badge">💥 VALORANT</div>
+    <div class="game-badge">🪖 Warzone</div>
+    <div class="game-badge">🏹 Free Fire</div>
+    <div class="game-badge soon">+ More Soon</div>
+  </div>
+</section>
+
+<!-- ── FEATURES ──────────────────────────────────────────────────── -->
+<section class="features" id="features">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-badge">Core Features</span>
+      <h2 class="section-title">Everything a Streamer Needs<br /><span class="gradient-text">Built by Gamers</span></h2>
+      <p class="section-sub">Stop spending hours in editing software. ClipForge AI handles everything — from detecting the moment to publishing the clip.</p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature-card feature-card--large">
+        <div class="feature-icon-wrap" style="background: linear-gradient(135deg,#7c3aed,#4f46e5)">
+          <span class="feature-icon">🤖</span>
+        </div>
+        <h3 class="feature-title">AI Event Detection</h3>
+        <p class="feature-desc">YOLO v8 model scans your killfeed, health bars, and victory screens. Audio AI detects screams and hype moments automatically.</p>
+        <div class="feature-tags">
+          <span class="tag">YOLO v8</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">librosa</span>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon-wrap" style="background: linear-gradient(135deg,#06b6d4,#0891b2)">
+          <span class="feature-icon">📱</span>
+        </div>
+        <h3 class="feature-title">Smart 9:16 Reframing</h3>
+        <p class="feature-desc">Webcam on top, gameplay below — auto-detected and stacked. Action tracking keeps your crosshair centered.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon-wrap" style="background: linear-gradient(135deg,#f59e0b,#d97706)">
+          <span class="feature-icon">🎵</span>
+        </div>
+        <h3 class="feature-title">Music & SFX Sync</h3>
+        <p class="feature-desc">Bass drops sync with final kills. Meme sounds auto-inserted for funny moments. Trending audio library built in.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon-wrap" style="background: linear-gradient(135deg,#10b981,#059669)">
+          <span class="feature-icon">☁️</span>
+        </div>
+        <h3 class="feature-title">Cloud Rendering</h3>
+        <p class="feature-desc">Zero local hardware needed. FFmpeg renders 1080p 60fps vertical clips on GPU servers in minutes.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon-wrap" style="background: linear-gradient(135deg,#ec4899,#be185d)">
+          <span class="feature-icon">💬</span>
+        </div>
+        <h3 class="feature-title">Chat Sentiment AI</h3>
+        <p class="feature-desc">Detects emoji clusters (🔥😱🤣) and keyword spikes (OMG, LMAO) in your Twitch chat to pinpoint viral moments.</p>
+      </div>
+
+      <div class="feature-card feature-card--large">
+        <div class="feature-icon-wrap" style="background: linear-gradient(135deg,#8b5cf6,#7c3aed)">
+          <span class="feature-icon">📤</span>
+        </div>
+        <h3 class="feature-title">One-Click Publishing</h3>
+        <p class="feature-desc">Connect YouTube & TikTok via OAuth. Auto-generate titles, descriptions, and hashtags with GPT. Publish all clips in one click — while you're still live.</p>
+        <div class="platform-badges">
+          <span class="platform-badge yt">▶ YouTube Shorts</span>
+          <span class="platform-badge tt">♪ TikTok</span>
+          <span class="platform-badge ig">◉ Instagram Reels</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ──────────────────────────────────────────────── -->
+<section class="how-it-works" id="how-it-works">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-badge">The Process</span>
+      <h2 class="section-title">From Stream to Short<br /><span class="gradient-text">in 4 Steps</span></h2>
+    </div>
+
+    <div class="steps-container">
+      <div class="steps-line"></div>
+
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-icon">🔗</div>
+          <h3 class="step-title">Paste Your Link</h3>
+          <p class="step-desc">Drop your Twitch VOD or YouTube stream URL — or upload raw footage directly. We handle the rest.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-icon">🧠</div>
+          <h3 class="step-title">AI Scans Everything</h3>
+          <p class="step-desc">Our CV + Audio pipeline analyzes every frame and audio spike. Highlights are scored and ranked automatically.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-icon">✂️</div>
+          <h3 class="step-title">Edit & Customize</h3>
+          <p class="step-desc">Preview your clips in the browser. Trim, swap music, add text overlays — all in a sleek web editor.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-icon">🚀</div>
+          <h3 class="step-title">Export & Publish</h3>
+          <p class="step-desc">Download 1080p MP4 or publish directly to YouTube Shorts, TikTok, and Instagram Reels in one click.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING TEASER ─────────────────────────────────────────────── -->
+<section class="pricing-teaser" id="pricing">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-badge">Simple Pricing</span>
+      <h2 class="section-title">Grow Without Limits<br /><span class="gradient-text">Pay As You Scale</span></h2>
+      <p class="section-sub">Start free. No credit card required. Upgrade when you're ready to go viral full-time.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Free</div>
+        <div class="pricing-price"><span class="price-amount">$0</span><span class="price-period">/mo</span></div>
+        <p class="pricing-desc">Perfect for trying it out</p>
+        <ul class="pricing-features">
+          <li class="feat yes">3 clips per month</li>
+          <li class="feat yes">720p export</li>
+          <li class="feat yes">BGMI + Valorant</li>
+          <li class="feat no">Watermark removed</li>
+          <li class="feat no">Direct publish</li>
+        </ul>
+        <a href="auth.html" class="btn btn-outline btn-full">Get Started Free</a>
+      </div>
+
+      <div class="pricing-card pricing-card--featured">
+        <div class="pricing-popular">Most Popular</div>
+        <div class="pricing-tier">Pro</div>
+        <div class="pricing-price"><span class="price-amount">$19</span><span class="price-period">/mo</span></div>
+        <p class="pricing-desc">For serious streamers</p>
+        <ul class="pricing-features">
+          <li class="feat yes">30 clips per month</li>
+          <li class="feat yes">1080p export</li>
+          <li class="feat yes">All 4 games</li>
+          <li class="feat yes">No watermark</li>
+          <li class="feat yes">Music sync</li>
+          <li class="feat no">Direct publish</li>
+        </ul>
+        <a href="auth.html" class="btn btn-primary btn-full">Start Pro Trial</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Creator</div>
+        <div class="pricing-price"><span class="price-amount">$49</span><span class="price-period">/mo</span></div>
+        <p class="pricing-desc">For full-time creators</p>
+        <ul class="pricing-features">
+          <li class="feat yes">Unlimited clips</li>
+          <li class="feat yes">4K export</li>
+          <li class="feat yes">Priority GPU</li>
+          <li class="feat yes">Direct publish</li>
+          <li class="feat yes">Chat AI analysis</li>
+          <li class="feat yes">Auto-hashtag GPT</li>
+        </ul>
+        <a href="pricing.html" class="btn btn-outline btn-full">See Full Features</a>
+      </div>
+
+    </div>
+
+    <div class="pricing-cta-note">
+      🎮 All plans include unlimited previews. Cancel anytime. <a href="pricing.html" class="link-accent">Compare all plans →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ──────────────────────────────────────────────── -->
+<section class="testimonials" id="testimonials">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-badge">Creator Stories</span>
+      <h2 class="section-title">Streamers <span class="gradient-text">Love ClipForge</span></h2>
+    </div>
+
+    <div class="testimonials-track" id="testimonialsTrack">
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"I went from 200 to 12,000 TikTok followers in 6 weeks. ClipForge catches kills I didn't even remember having. This thing is insane."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#7c3aed,#4f46e5)">RK</div>
+          <div>
+            <div class="testi-name">@RajKhiladi</div>
+            <div class="testi-meta">BGMI • 48K followers</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"The chat sentiment feature is a cheat code. It literally finds the moments my chat went crazy and clips them automatically. My shorts hit 500K views last week."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">SV</div>
+          <div>
+            <div class="testi-name">@SnipeVictor</div>
+            <div class="testi-meta">Valorant • 102K followers</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"I stream 6 hours a day. Before ClipForge I would spend 3 more hours editing. Now I click one button and 5 clips are ready. This saved my entire creator career."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706)">PG</div>
+          <div>
+            <div class="testi-name">@ProGunnerYT</div>
+            <div class="testi-meta">Warzone • 230K subscribers</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★☆</div>
+        <p class="testi-quote">"The vertical reframing actually works! My facecam and gameplay look professional without me touching a single timeline. Unreal technology."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#10b981,#059669)">NF</div>
+          <div>
+            <div class="testi-name">@NightFuryFF</div>
+            <div class="testi-meta">Free Fire • 89K followers</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Direct publish to YouTube Shorts + TikTok at the same time? Bro I was manually uploading to 3 platforms. ClipForge just does everything while I play my next game."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#ec4899,#be185d)">AS</div>
+          <div>
+            <div class="testi-name">@AceShooterGG</div>
+            <div class="testi-meta">BGMI • 550K subscribers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-nav">
+      <button class="testi-btn" id="testiPrev" aria-label="Previous">‹</button>
+      <div class="testi-dots" id="testiDots"></div>
+      <button class="testi-btn" id="testiNext" aria-label="Next">›</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA BANNER ────────────────────────────────────────────────── -->
+<section class="cta-banner">
+  <div class="cta-glow"></div>
+  <div class="section-inner cta-inner">
+    <h2 class="cta-title">Ready to Go Viral?</h2>
+    <p class="cta-sub">Join 3,200+ streamers who generate clips on autopilot. Free to start — no credit card needed.</p>
+    <a href="auth.html" class="btn btn-primary btn-xl">
+      ⚡ Create My First Clip Free
+    </a>
+    <p class="cta-note">Takes 30 seconds to sign up • Cancel anytime</p>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo footer-logo">
+        <div class="logo-icon">⚡</div>
+        <span class="logo-text">ClipForge<span class="logo-ai">AI</span></span>
+      </a>
+      <p class="footer-tagline">The AI that clips so you don't have to.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn" aria-label="Twitter">𝕏</a>
+        <a href="#" class="social-btn" aria-label="Discord">💬</a>
+        <a href="#" class="social-btn" aria-label="YouTube">▶</a>
+        <a href="#" class="social-btn" aria-label="TikTok">♪</a>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4 class="footer-col-title">Product</h4>
+        <a href="#features" class="footer-link">Features</a>
+        <a href="pricing.html" class="footer-link">Pricing</a>
+        <a href="#how-it-works" class="footer-link">How It Works</a>
+        <a href="dashboard.html" class="footer-link">Dashboard</a>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Games</h4>
+        <a href="#" class="footer-link">BGMI</a>
+        <a href="#" class="footer-link">VALORANT</a>
+        <a href="#" class="footer-link">Warzone</a>
+        <a href="#" class="footer-link">Free Fire</a>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Company</h4>
+        <a href="#" class="footer-link">About</a>
+        <a href="#" class="footer-link">Blog</a>
+        <a href="#" class="footer-link">Careers</a>
+        <a href="#" class="footer-link">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Legal</h4>
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+        <a href="terms.html" class="footer-link">Terms of Service</a>
+        <a href="privacy.html#cookies" class="footer-link">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 ClipForge AI. All rights reserved. Built for gamers, by gamers.</p>
+  </div>
+</footer>
+
+<script src="scripts/main.js"></script>
+</body>
+</html>
