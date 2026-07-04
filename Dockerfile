@@ -1,18 +1,20 @@
-FROM python:3.10-slim
+FROM python:3.11-slim-bookworm
 
-# Force noninteractive to avoid apt prompts and update mirrors
+# Force noninteractive to avoid apt prompts
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install stable system requirements for OpenCV and FFmpeg safely
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Use a more robust apt-get sequence and clean up properly
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends \
     ffmpeg \
     libsm6 \
     libxext6 \
     libgl1-mesa-glx \
     libglib2.0-0 \
     git \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+    curl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
