@@ -11,5 +11,5 @@
   "reportAttributeAccessIssue": "warning",
   "useLibraryCodeForTypes": true,
   "autoSearchPaths": true,
-  "extraPaths": ["..", "./python-local/Lib/site-packages"]
+  "extraPaths": ["c:/myexp/clipforge", "./python-local/Lib/site-packages"]
 }
