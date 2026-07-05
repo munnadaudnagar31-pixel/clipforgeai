@@ -25,10 +25,10 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from database import get_db
-from models.models import User, Clip
-from api.auth import get_current_user
-from config import settings
+from backend.app.database import get_db
+from backend.app.models.models import User, Clip
+from backend.app.api.auth import get_current_user
+from backend.app.config import settings
 
 router = APIRouter()
 

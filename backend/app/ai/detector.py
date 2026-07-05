@@ -27,7 +27,7 @@ from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 from dataclasses import dataclass
 
-from config import settings
+from backend.app.config import settings
 
 # â”€â”€ Optional heavy-dependency imports (fail-safe) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # The server starts normally even if these packages are not installed.

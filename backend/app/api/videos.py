@@ -33,10 +33,10 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from config import settings
-from database import get_db
-from models.models import User, Video, Clip
-from api.auth import get_current_user
+from backend.app.config import settings
+from backend.app.database import get_db
+from backend.app.models.models import User, Video, Clip
+from backend.app.api.auth import get_current_user
 
 router = APIRouter()
 
@@ -78,8 +78,8 @@ async def _run_pipeline_bg(
     Runs the AI pipeline as a FastAPI background task.
     Opens its own DB session so it's independent of the request session.
     """
-    from database import AsyncSessionLocal
-    from ai.pipeline import run_pipeline
+    from backend.app.database import AsyncSessionLocal
+    from backend.app.ai.pipeline import run_pipeline
 
     async with AsyncSessionLocal() as session:
         try:
@@ -156,7 +156,7 @@ async def ingest_url(
     try:
         if settings.REDIS_URL and settings.REDIS_URL != "redis://localhost:6379/0":
             raise ImportError("Redis not configured for dev")
-        from workers.job_worker import process_video_task
+        from backend.app.workers.job_worker import process_video_task
         task = process_video_task.delay(
             video_id=video_id,
             source_url=url,

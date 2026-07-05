@@ -1,12 +1,11 @@
 import os
 import sys
-current_dir = os.path.dirname(os.path.abspath(__file__))
-for path in [current_dir, os.path.dirname(current_dir), os.path.dirname(os.path.dirname(current_dir))]:
-    if path not in sys.path:
-        sys.path.insert(0, path)
+# Force container root as top priority
+sys.path.insert(0, "/app/backend")
+sys.path.insert(0, "/app")
 
 # Hook global error monitor before any other application imports
-import error_monitor
+import backend.app.error_monitor
 
 """
 ClipForge AI â€” FastAPI Backend Entry Point
@@ -25,8 +24,8 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from config import settings
-from database import engine, Base
+from backend.app.config import settings
+from backend.app.database import engine, Base
 
 # Optional Sentry
 if settings.SENTRY_DSN:
@@ -38,7 +37,7 @@ if settings.SENTRY_DSN:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Import all models so their metadata is registered
-    from models import models  # noqa: F401
+    from backend.app.models import models  # noqa: F401
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     print("âœ… Database tables verified/created.")
@@ -76,7 +75,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 
 # â”€â”€ Routers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-from api import auth, videos, clips   # noqa: E402
+from backend.app.api import auth, videos, clips   # noqa: E402
 
 app.include_router(auth.router,   prefix="/api/auth",   tags=["Auth"])
 app.include_router(videos.router, prefix="/api/videos", tags=["Videos"])
@@ -84,7 +83,7 @@ app.include_router(clips.router,  prefix="/api/clips",  tags=["Clips"])
 
 # Optional: export, webhooks (may import heavy optional deps)
 try:
-    from api import export, webhooks
+    from backend.app.api import export, webhooks
     app.include_router(export.router,   prefix="/api/export",   tags=["Export"])
     app.include_router(webhooks.router, prefix="/api/webhooks", tags=["Webhooks"])
 except Exception as e:
