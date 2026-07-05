@@ -10,7 +10,7 @@ services:
   - type: web
     name: clipforge-api
     env: docker
-    dockerfilePath: ./backend/Dockerfile
+    dockerfilePath: ./Dockerfile
     plan: free
     healthCheckPath: /api/health
     envVars:
@@ -42,8 +42,8 @@ services:
   - type: worker
     name: clipforge-worker
     env: docker
-    dockerfilePath: ./backend/Dockerfile
-    dockerCommand: celery -A app.workers.job_worker.celery_app worker --loglevel=info --concurrency=2
+    dockerfilePath: ./Dockerfile
+    dockerCommand: celery -A backend.app.workers.job_worker.celery_app worker --loglevel=info --concurrency=2
     plan: free
     envVars:
       - key: DATABASE_URL
