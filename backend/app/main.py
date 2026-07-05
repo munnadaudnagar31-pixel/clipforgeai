@@ -1,8 +1,8 @@
 import os
 import sys
-# Force container root as top priority
-sys.path.insert(0, "/app/backend")
-sys.path.insert(0, "/app")
+# Force both /app and root subdirectories into Python search paths
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 # Hook global error monitor before any other application imports
 import backend.app.error_monitor
