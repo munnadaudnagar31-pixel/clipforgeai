@@ -18,7 +18,7 @@
 const CF = window.ClipForge = window.ClipForge || {};
 
 // ── Config ────────────────────────────────────────────────────────
-const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:8000' : '';
+const API_BASE = 'https://clipforgeai-ughj.onrender.com';
 const TOKEN_KEY = 'token';
 const USER_KEY  = 'cf_user_profile';
 
