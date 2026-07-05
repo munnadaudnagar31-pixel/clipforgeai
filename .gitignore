@@ -75,6 +75,7 @@ redis_data/
 clips_tmp/
 *.mp4.tmp
 *.partial
+.tmp.driveupload/
 
 # ── Database / Migrations ────────────────────────────────────────
 *.sqlite3
