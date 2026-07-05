@@ -29,9 +29,9 @@ from pydantic import BaseModel, EmailStr
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from ..config import settings
-from ..database import get_db
-from ..models.models import User
+from config import settings
+from database import get_db
+from models.models import User
 
 router = APIRouter()
 

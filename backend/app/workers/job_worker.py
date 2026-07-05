@@ -30,7 +30,7 @@ from celery import Celery
 from sqlalchemy import create_engine, update, select
 from sqlalchemy.orm import sessionmaker
 
-from ..config import settings
+from config import settings
 
 
 # â”€â”€ Celery App â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -129,7 +129,7 @@ def _download_video(url: str, output_dir: str) -> str:
 
 # â”€â”€ DB Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def _update_video_status(video_id: str, status: str, Session) -> None:
-    from ..models.models import Video
+    from models.models import Video
     with Session() as session:
         session.execute(
             update(Video).where(Video.id == video_id).values(status=status)
@@ -138,7 +138,7 @@ def _update_video_status(video_id: str, status: str, Session) -> None:
 
 
 def _mark_video_failed(video_id: str, error: str, Session) -> None:
-    from ..models.models import Video
+    from models.models import Video
     with Session() as session:
         session.execute(
             update(Video)
@@ -150,7 +150,7 @@ def _mark_video_failed(video_id: str, error: str, Session) -> None:
 
 
 def _get_video_user_id(video_id: str, session) -> str:
-    from ..models.models import Video
+    from models.models import Video
     row = session.execute(
         select(Video.user_id).where(Video.id == video_id)
     ).scalar_one_or_none()
@@ -181,9 +181,9 @@ def process_video_task(
       4. Upload rendered clips to S3 (or save locally in dev mode)
       5. Update DB records
     """
-    from ..models.models import Video, Clip
-    from ..ai.pipeline import detect_highlights, render_clip_916, _get_video_duration
-    from ..ai.reframer import generate_thumbnail
+    from models.models import Video, Clip
+    from ai.pipeline import detect_highlights, render_clip_916, _get_video_duration
+    from ai.reframer import generate_thumbnail
 
     Session = _make_sync_session()
 
