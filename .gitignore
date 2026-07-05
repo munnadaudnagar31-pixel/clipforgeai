@@ -53,7 +53,7 @@ venv.bak/
 *.tflite
 *.pkl
 *.pickle
-models/
+/models/
 
 # ── Node / JS ────────────────────────────────────────────────────
 node_modules/
