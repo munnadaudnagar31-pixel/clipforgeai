@@ -1,5 +1,9 @@
-import os, sys
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import os
+import sys
+current_dir = os.path.dirname(os.path.abspath(__file__))
+for path in [current_dir, os.path.dirname(current_dir), os.path.dirname(os.path.dirname(current_dir))]:
+    if path not in sys.path:
+        sys.path.insert(0, path)
 
 # Hook global error monitor before any other application imports
 import error_monitor

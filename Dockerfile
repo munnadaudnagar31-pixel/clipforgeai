@@ -26,6 +26,6 @@ COPY . .
 EXPOSE 8000
 
 # Set PYTHONPATH to root so all internal app/ imports work perfectly
-ENV PYTHONPATH=/app
+ENV PYTHONPATH="/app:/app/backend:/app/backend/app"
 
 CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
