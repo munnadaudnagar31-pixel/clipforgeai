@@ -1,4 +1,4 @@
-﻿"""ClipForge AI â€” SQLAlchemy ORM Models (DB-agnostic: SQLite + PostgreSQL)"""
+"""ClipForge AI â€” SQLAlchemy ORM Models (DB-agnostic: SQLite + PostgreSQL)"""
 
 import uuid
 from datetime import datetime
@@ -9,7 +9,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 import enum
 
-from backend.app.database import Base
+from database import Base
 
 # â”€â”€ String UUID helper (works on SQLite & PostgreSQL) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def _uuid():

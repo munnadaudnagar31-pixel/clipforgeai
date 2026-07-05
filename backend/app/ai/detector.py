@@ -1,4 +1,4 @@
-﻿import os
+import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 from dataclasses import dataclass
 
-from backend.app.config import settings
+from config import settings
 
 # â”€â”€ Optional heavy-dependency imports (fail-safe) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # The server starts normally even if these packages are not installed.

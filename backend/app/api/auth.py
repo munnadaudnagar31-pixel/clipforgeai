@@ -1,4 +1,4 @@
-﻿"""ClipForge AI â€” Auth API Routes (JWT + Email/Password)
+"""ClipForge AI â€” Auth API Routes (JWT + Email/Password)
 
 Endpoints:
   POST /api/auth/register  â€” create account, return JWT
@@ -19,9 +19,9 @@ from pydantic import BaseModel, EmailStr
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from backend.app.config import settings
-from backend.app.database import get_db
-from backend.app.models.models import User
+from config import settings
+from database import get_db
+from models.models import User
 
 router = APIRouter()
 

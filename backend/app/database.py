@@ -1,4 +1,4 @@
-﻿"""ClipForge AI â€” Database session management
+"""ClipForge AI â€” Database session management
 
 Supports:
   â€¢ SQLite (local dev):   DATABASE_URL=sqlite+aiosqlite:///./clipforge.db
@@ -9,7 +9,7 @@ Supports:
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.pool import StaticPool
-from backend.app.config import settings
+from config import settings
 
 _is_sqlite = settings.DATABASE_URL.startswith("sqlite")
 

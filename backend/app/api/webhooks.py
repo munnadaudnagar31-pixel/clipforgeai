@@ -1,4 +1,4 @@
-﻿"""ClipForge AI â€” Stripe Webhook Handler
+"""ClipForge AI â€” Stripe Webhook Handler
 
 Handles Stripe billing events: checkout completed, subscription deleted,
 payment failed. Uses plain string plan values (no PlanEnum).
@@ -8,9 +8,9 @@ payment failed. Uses plain string plan values (no PlanEnum).
 from fastapi import APIRouter, Request, HTTPException
 from sqlalchemy import update, select
 
-from backend.app.config import settings
-from backend.app.database import AsyncSessionLocal
-from backend.app.models.models import User
+from config import settings
+from database import AsyncSessionLocal
+from models.models import User
 
 router = APIRouter()
 

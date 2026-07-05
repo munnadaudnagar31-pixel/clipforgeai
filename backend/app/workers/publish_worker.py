@@ -1,4 +1,4 @@
-﻿import os
+import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -29,7 +29,7 @@ from celery import Celery
 from sqlalchemy import create_engine, update
 from sqlalchemy.orm import sessionmaker
 
-from backend.app.config import settings
+from config import settings
 
 
 # â”€â”€ Celery App (shared with job_worker) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -59,7 +59,7 @@ def _get_session():
 
 
 def _update_export(export_id: str, session_factory, **kwargs):
-    from backend.app.models.models import Export
+    from models.models import Export
     with session_factory() as session:
         session.execute(
             update(Export).where(Export.id == export_id).values(**kwargs)

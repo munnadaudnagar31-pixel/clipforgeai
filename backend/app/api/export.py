@@ -1,4 +1,4 @@
-﻿"""ClipForge AI â€” Export API Routes
+"""ClipForge AI â€” Export API Routes
 
 Handles publishing clips to social platforms and tracking export history.
 All model fields use plain strings (no Enum objects) â€” compatible with SQLite + Postgres.
@@ -13,9 +13,9 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from backend.app.database import get_db
-from backend.app.models.models import User, Clip, Export
-from backend.app.api.auth import get_current_user
+from database import get_db
+from models.models import User, Clip, Export
+from api.auth import get_current_user
 
 router = APIRouter()
 
@@ -131,7 +131,7 @@ async def publish_clips(
 
             # Try to enqueue Celery publish task (optional â€” fails silently in dev)
             try:
-                from backend.app.workers.publish_worker import publish_clip_task
+                from workers.publish_worker import publish_clip_task
                 publish_clip_task.delay(
                     export_id=str(export.id),
                     clip_cdn_url=clip.cdn_url,

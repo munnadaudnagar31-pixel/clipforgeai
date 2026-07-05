@@ -1,4 +1,4 @@
-﻿import os
+import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -29,7 +29,7 @@ from pathlib import Path
 from typing import List, Optional, Dict, Any
 from dataclasses import dataclass
 
-from backend.app.config import settings
+from config import settings
 
 
 # â”€â”€ Data Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -107,7 +107,7 @@ def detect_highlights(
     Falls back to a pure-audio heuristic if YOLO / librosa are unavailable.
     """
     try:
-        from backend.app.ai.detector import ClipDetector
+        from ai.detector import ClipDetector
         detector = ClipDetector()
         moments = detector.run(
             video_path=video_path,
@@ -399,7 +399,7 @@ async def run_pipeline(
     Can be run as a FastAPI background task (no Redis/Celery needed).
     """
     from sqlalchemy import update as sa_update, select as sa_select
-    from backend.app.models.models import Video, Clip
+    from models.models import Video, Clip
 
     async def _update_video(status: str, **kwargs):
         if db_session:

@@ -12,7 +12,7 @@ if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
 # 2. Explicit Absolute Imports to kill IDE and Container errors permanently
-from backend.app.api import auth, videos, clips
+from api import auth, videos, clips
 
 app = FastAPI(
     title="ClipForge AI API",
