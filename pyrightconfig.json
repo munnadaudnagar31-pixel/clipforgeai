@@ -7,5 +7,5 @@
   "venv": ".venv",
   "typeCheckingMode": "basic",
   "reportMissingImports": "warning",
-  "extraPaths": [".", "backend/python-local/Lib/site-packages"]
+  "extraPaths": [".", "backend/python-local/Lib/site-packages", "backend/app"]
 }
