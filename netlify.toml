@@ -1,7 +1,3 @@
 [build]
-  base = ""
   publish = "."
-  command = "echo 'Static Frontend Only'"
-
-[build.environment]
-  PYTHON_VERSION = "none"
+  command = "echo 'Static Deploy Only'"

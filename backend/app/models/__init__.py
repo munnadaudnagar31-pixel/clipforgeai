@@ -1,1 +1,0 @@
-# ClipForge AI — Models package
