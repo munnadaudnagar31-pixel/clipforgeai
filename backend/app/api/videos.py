@@ -10,16 +10,6 @@ GET  /api/videos/             â€” list user's videos
 GET  /api/videos/{id}/status  â€” poll processing status + clips
 DELETE /api/videos/{id}       â€” delete video + clips
 """
-import os
-import sys
-# Inject workspace paths to fix IDE red lines and Render imports
-_app_dir = os.path.dirname(os.path.abspath(__file__))
-while os.path.basename(_app_dir) != 'app' and _app_dir != os.path.dirname(_app_dir):
-    _app_dir = os.path.dirname(_app_dir)
-_backend_dir = os.path.dirname(_app_dir)
-_root_dir = os.path.dirname(_backend_dir)
-if _backend_dir not in sys.path: sys.path.insert(0, _backend_dir)
-if _root_dir not in sys.path: sys.path.insert(0, _root_dir)
 
 
 import os
