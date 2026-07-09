@@ -11,11 +11,11 @@ if root_dir not in sys.path:
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
-from backend.app.api.auth import router as auth_router
-from backend.app.api.videos import router as videos_router
-from backend.app.api.clips import router as clips_router
-from backend.app.database import engine
-from backend.app.models import models
+from api.auth import router as auth_router
+from api.videos import router as videos_router
+from api.clips import router as clips_router
+from database import engine
+from models import models
 
 # Force Table Creation
 models.Base.metadata.create_all(bind=engine)
