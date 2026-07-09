@@ -1,7 +1,7 @@
 """ClipForge AI â€” SQLAlchemy ORM Models (DB-agnostic: SQLite + PostgreSQL)"""
 
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import (
     Column, String, Integer, Float, Boolean, DateTime,
     ForeignKey, Enum, JSON, Text, BigInteger
@@ -9,7 +9,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 import enum
 
-from database import Base
+from backend.app.database import Base
 
 # â”€â”€ String UUID helper (works on SQLite & PostgreSQL) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 def _uuid():
@@ -50,6 +50,7 @@ class ExportPlatformEnum(str, enum.Enum):
 # â”€â”€ User â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class User(Base):
     __tablename__ = "users"
+    __table_args__ = {'extend_existing': True}
 
     # Use String for UUID so it works on both SQLite and PostgreSQL
     id         = Column(String(36), primary_key=True, default=_uuid)
@@ -75,8 +76,8 @@ class User(Base):
     clips_used_this_month = Column(Integer, default=0, nullable=False)
 
     is_active  = Column(Boolean, default=True, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=_now, nullable=False)
+    updated_at = Column(DateTime, default=_now, onupdate=_now)
 
     # Relationships
     videos  = relationship("Video",  back_populates="user", cascade="all, delete-orphan")
@@ -90,6 +91,7 @@ class User(Base):
 # â”€â”€ Video â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class Video(Base):
     __tablename__ = "videos"
+    __table_args__ = {'extend_existing': True}
 
     id         = Column(String(36), primary_key=True, default=_uuid)
     user_id    = Column(String(36), ForeignKey("users.id"), nullable=False, index=True)
@@ -112,8 +114,8 @@ class Video(Base):
     audio_peaks     = Column(JSON, default=list)  # [{timestamp, rms}]
     chat_spikes     = Column(JSON, default=list)
 
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=_now)
+    updated_at = Column(DateTime, default=_now, onupdate=_now)
 
     # Relationships
     user  = relationship("User",  back_populates="videos")
@@ -122,6 +124,7 @@ class Video(Base):
 # â”€â”€ Clip â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class Clip(Base):
     __tablename__ = "clips"
+    __table_args__ = {'extend_existing': True}
 
     id       = Column(String(36), primary_key=True, default=_uuid)
     user_id  = Column(String(36), ForeignKey("users.id"), nullable=False, index=True)
@@ -152,8 +155,8 @@ class Clip(Base):
     has_sfx      = Column(Boolean, default=False)
     metadata_json = Column(JSON, default=dict)
 
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=_now)
+    updated_at = Column(DateTime, default=_now, onupdate=_now)
 
     # Relationships
     user    = relationship("User",   back_populates="clips")
@@ -163,6 +166,7 @@ class Clip(Base):
 # â”€â”€ Export â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class Export(Base):
     __tablename__ = "exports"
+    __table_args__ = {'extend_existing': True}
 
     id         = Column(String(36), primary_key=True, default=_uuid)
     clip_id    = Column(String(36), ForeignKey("clips.id"), nullable=False)
@@ -180,7 +184,7 @@ class Export(Base):
 
     scheduled_at = Column(DateTime)
     published_at = Column(DateTime)
-    created_at   = Column(DateTime, default=datetime.utcnow)
+    created_at   = Column(DateTime, default=_now)
 
     # Relationships
     clip = relationship("Clip", back_populates="exports")

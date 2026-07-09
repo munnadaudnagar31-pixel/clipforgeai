@@ -1,1 +1,1 @@
-# ClipForge AI — App package
+# Init
