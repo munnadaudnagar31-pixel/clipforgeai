@@ -11,8 +11,9 @@ if root_dir not in sys.path:
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
-# 2. Explicit Absolute Imports to kill IDE and Container errors permanently
-from backend.app.api import auth, videos, clips
+from backend.app.api.auth import router as auth_router
+from backend.app.api.videos import router as videos_router
+from backend.app.api.clips import router as clips_router
 from backend.app.database import engine
 from backend.app.models import models
 
@@ -35,9 +36,9 @@ app.add_middleware(
 )
 
 # 4. Include Routers cleanly using explicit absolute modules
-app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
-app.include_router(videos.router, prefix="/api/videos", tags=["Videos"])
-app.include_router(clips.router, prefix="/api/clips", tags=["Clips"])
+app.include_router(auth_router, prefix="/api/auth", tags=["auth"])
+app.include_router(videos_router, prefix="/api/videos", tags=["videos"])
+app.include_router(clips_router, prefix="/api/clips", tags=["clips"])
 
 @app.get("/")
 def read_root():
