@@ -13,6 +13,11 @@ if current_dir not in sys.path:
 
 # 2. Explicit Absolute Imports to kill IDE and Container errors permanently
 from backend.app.api import auth, videos, clips
+from backend.app.database import engine
+from backend.app.models import models
+
+# Force Table Creation
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="ClipForge AI API",
