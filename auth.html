@@ -316,7 +316,7 @@ async function handleSignIn(e) {
   errEl.classList.remove('show');
 
   try {
-    await CF.auth.login(email, pass);
+    await CF.auth.login(e, email, pass);
     window.location.href = 'dashboard.html';
   } catch (err) {
     btn.disabled = false;

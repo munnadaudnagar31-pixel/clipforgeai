@@ -92,8 +92,15 @@ CF.auth = {
    * Stores JWT, redirects to dashboard.
    */
   async register(name, email, password) {
-    const data = await CF.api.post('/api/auth/register', { name, email, password });
-    CF.token.set(data.access_token);
+    const res = await fetch('https://clipforgeai-ughj.onrender.com/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || data.error || `HTTP ${res.status}`);
+    
+    localStorage.setItem('token', data.token);
     // Fetch profile right away
     const profile = await CF.api.get('/api/auth/me');
     localStorage.setItem(USER_KEY, JSON.stringify(profile));
@@ -104,9 +111,17 @@ CF.auth = {
    * Login: POST /api/auth/login (JSON)
    * Stores JWT, returns user profile.
    */
-  async login(email, password) {
-    const data = await CF.api.post('/api/auth/login', { email, password });
-    CF.token.set(data.access_token);
+  async login(e, email, password) {
+    if (e) e.preventDefault();
+    const res = await fetch('https://clipforgeai-ughj.onrender.com/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || data.error || `HTTP ${res.status}`);
+    
+    localStorage.setItem('token', data.token);
     const profile = await CF.api.get('/api/auth/me');
     localStorage.setItem(USER_KEY, JSON.stringify(profile));
     return profile;
