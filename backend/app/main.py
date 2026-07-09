@@ -17,13 +17,19 @@ from backend.app.api.clips import router as clips_router
 from backend.app.database import engine
 from backend.app.models import models
 
-# Force Table Creation
-models.Base.metadata.create_all(bind=engine)
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    async with engine.begin() as conn:
+        await conn.run_sync(models.Base.metadata.create_all)
+    yield
 
 app = FastAPI(
     title="ClipForge AI API",
     description="Backend engine for automated video clipping and processing",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan,
 )
 
 # 3. Configure CORS Middleware for UI interaction

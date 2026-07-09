@@ -15,6 +15,9 @@ from backend.app.database import Base
 def _uuid():
     return str(uuid.uuid4())
 
+def _now():
+    return datetime.now(timezone.utc)
+
 # â”€â”€ Enums â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 class PlanEnum(str, enum.Enum):
     free     = "free"
