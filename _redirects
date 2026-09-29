@@ -1,1 +1,1 @@
-/* /index.html 200
+# Static multi-page site: unknown paths fall through to 404.html (no catch-all rewrite)

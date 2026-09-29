@@ -9,13 +9,13 @@
   <link rel="manifest" href="manifest.json" />
   <meta property="og:title" content="Sign In — ClipForge AI" />
   <meta property="og:description" content="Create your free account and start generating viral gaming clips automatically." />
-  <meta property="og:image" content="https://clipforge.ai/assets/og-image.png" />
-  <meta property="og:url" content="https://clipforge.ai/auth.html" />
+  <meta property="og:image" content="https://clipforgeoi.netlify.app/assets/og-image.png" />
+  <meta property="og:url" content="https://clipforgeoi.netlify.app/auth.html" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ClipForge AI" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@clipforgeai" />
-  <link rel="canonical" href="https://clipforge.ai/auth.html" />
+  <link rel="canonical" href="https://clipforgeoi.netlify.app/auth.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -140,15 +140,6 @@
       <h1 class="auth-title" style="margin-bottom:6px;">Welcome back! 👋</h1>
       <p class="auth-sub">Sign in to continue clipping</p>
 
-      <!-- OAuth -->
-      <a href="dashboard.html" class="oauth-btn" id="googleSignInBtn">
-        <span class="oauth-icon">🔵</span> Continue with Google
-      </a>
-      <a href="dashboard.html" class="oauth-btn" id="twitchSignInBtn" style="border-color:rgba(145,71,255,0.4);color:#bf94ff;">
-        <span class="oauth-icon">💜</span> Continue with Twitch
-      </a>
-
-      <div class="auth-divider">or sign in with email</div>
 
       <div class="auth-error" id="signinError">Invalid email or password. Please try again.</div>
 
@@ -182,15 +173,6 @@
       <h1 class="auth-title" style="margin-bottom:6px;">Start clipping free 🚀</h1>
       <p class="auth-sub">No credit card required</p>
 
-      <!-- OAuth -->
-      <a href="dashboard.html" class="oauth-btn" id="googleSignUpBtn">
-        <span class="oauth-icon">🔵</span> Sign up with Google
-      </a>
-      <a href="dashboard.html" class="oauth-btn" id="twitchSignUpBtn" style="border-color:rgba(145,71,255,0.4);color:#bf94ff;">
-        <span class="oauth-icon">💜</span> Sign up with Twitch
-      </a>
-
-      <div class="auth-divider">or sign up with email</div>
 
       <div class="auth-error" id="signupError"></div>
       <div class="auth-success" id="signupSuccess">🎉 Account created! Redirecting to your dashboard...</div>
@@ -366,13 +348,13 @@ function showForgotPassword(e) {
     showError(document.getElementById('signinError'), 'Enter your email above first, then click Forgot password.');
     return;
   }
-  // In production: POST /api/auth/forgot-password
+  // Password reset is not available yet — don't claim an email was sent
   const errEl = document.getElementById('signinError');
   errEl.classList.remove('show');
   const sucEl = document.createElement('div');
   sucEl.className = 'auth-success show';
   sucEl.style.marginBottom = '16px';
-  sucEl.textContent = `✅ Password reset link sent to ${email}`;
+  sucEl.textContent = 'Password reset is not available yet. Please contact support@clipforge.ai for help.';
   document.getElementById('signinForm').prepend(sucEl);
   setTimeout(() => sucEl.remove(), 5000);
 }
