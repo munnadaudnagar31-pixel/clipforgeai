@@ -8,20 +8,12 @@
   "theme_color": "#7c3aed",
   "orientation": "any",
   "lang": "en",
-  "categories": ["games", "utilities", "productivity"],
+  "categories": [
+    "games",
+    "utilities",
+    "productivity"
+  ],
   "icons": [
-    {
-      "src": "assets/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "assets/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
     {
       "src": "favicon.svg",
       "sizes": "any",
@@ -43,14 +35,24 @@
       "short_name": "Clip",
       "description": "Generate a new AI highlight clip",
       "url": "/new-clip.html",
-      "icons": [{ "src": "favicon.svg", "sizes": "any" }]
+      "icons": [
+        {
+          "src": "favicon.svg",
+          "sizes": "any"
+        }
+      ]
     },
     {
       "name": "My Clips",
       "short_name": "Clips",
       "description": "View your clip library",
       "url": "/my-clips.html",
-      "icons": [{ "src": "favicon.svg", "sizes": "any" }]
+      "icons": [
+        {
+          "src": "favicon.svg",
+          "sizes": "any"
+        }
+      ]
     }
   ]
 }
